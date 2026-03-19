@@ -1,0 +1,1584 @@
+/* ============================================================
+   style.css — Diagnóstico Estratégico Máquina.ISP
+   Paleta, tipografia e animações inspiradas no template
+   da marca (DS22/DS24 Light Mode com Blue Accent #0057FF)
+   ============================================================ */
+
+/* --- Variáveis de Design System --- */
+:root {
+    --bg-deep: #050505;
+    --bg-light: #F8FAFC;
+    --bg-white: #FFFFFF;
+    --surface: #F5F5F0;
+    --primary: #09090b;
+    --muted: #a1a1aa;
+    --border: #E0E0E0;
+    --border-dark: rgba(255, 255, 255, 0.07);
+    --accent: #0057FF;
+    --accent-hover: #0048D6;
+    --btn-glow: rgba(0, 87, 255, 0.35);
+    --text-dark: #09090b;
+    --text-muted: #6b7280;
+    --text-light: #9ca3af;
+    --radius-card: 32px;
+    --radius-input: 12px;
+    --transition-base: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* --- Utilitários --- */
+.hidden {
+    display: none !important;
+}
+
+.text-accent {
+    color: var(--accent);
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(224, 224, 224, 0.5);
+    transition: background var(--transition-base), box-shadow var(--transition-base);
+}
+
+.nav-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Fallback quando a imagem não carrega */
+.logo-text-fallback {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: -0.03em;
+    color: var(--primary);
+}
+
+.nav-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: var(--accent);
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(0.85);
+    }
+}
+
+.badge-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.hero-section {
+    position: relative;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 48px;
+    overflow: hidden;
+    /* Grid sutil no fundo (mesma técnica do template) */
+    background-color: var(--bg-light);
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    transition: padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hero mais compacta ao avançar para etapas 2 e 3 */
+.hero-compact {
+    padding: 104px 24px 24px;
+}
+
+/* Grades de glow posicionadas */
+.glow-point {
+    position: absolute;
+    border-radius: 9999px;
+    pointer-events: none;
+}
+
+.glow-top-left {
+    width: 500px;
+    height: 500px;
+    top: -20%;
+    left: -15%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    filter: blur(120px);
+    opacity: 0.06;
+}
+
+.glow-bottom-right {
+    width: 400px;
+    height: 400px;
+    bottom: -10%;
+    right: -10%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    filter: blur(100px);
+    opacity: 0.05;
+}
+
+/* Overlay de gradiente frontal */
+.grid-bg-light {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.5), rgba(255, 255, 255, 0.8));
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    display: block;
+}
+
+.hero-title {
+    font-family: 'Stereo Gothic W06 950', 'Montserrat', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    max-width: 540px;
+    line-height: 1.7;
+}
+
+/* --- Hero mais compacta (sem h1 e chips) --- */
+
+/* Headline principal restaurada — visível apenas na Etapa 1 */
+.headline-container {
+    position: relative;
+    display: inline-block;
+    z-index: 10;
+}
+
+.headline-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    filter: blur(90px);
+    opacity: 0.18;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: -1;
+    animation: rotate-hero-glow 12s linear infinite;
+}
+
+@keyframes rotate-hero-glow {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-100px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg) translateY(-100px) rotate(-360deg);
+    }
+}
+
+.hero-headline {
+    font-family: 'Stereo Gothic W06 950', 'Montserrat', sans-serif;
+    font-size: clamp(1.8rem, 4.2vw, 2.9rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    margin-top: 12px;
+    position: relative;
+}
+
+
+/* ============================================================
+   STEPPER (Indicador de Etapas)
+   ============================================================ */
+.stepper-wrapper {
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    padding: 20px 24px;
+    position: sticky;
+    top: 72px;
+    z-index: 50;
+}
+
+.stepper-container {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    border: 2px solid var(--border);
+    background: var(--bg-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--text-light);
+    transition: all var(--transition-base);
+}
+
+.step.active .step-circle {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 0 0 4px rgba(0, 87, 255, 0.15);
+}
+
+.step.completed .step-circle {
+    border-color: var(--accent);
+    background: rgba(0, 87, 255, 0.08);
+    color: var(--accent);
+}
+
+.step-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    white-space: nowrap;
+    transition: color var(--transition-base);
+}
+
+.step.active .step-label {
+    color: var(--accent);
+}
+
+.step.completed .step-label {
+    color: var(--text-muted);
+}
+
+.step-line {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    margin: 0 8px;
+    margin-bottom: 18px;
+    /* alinha com os círculos */
+    transition: background var(--transition-base);
+    max-width: 80px;
+}
+
+.step-line.active {
+    background: var(--accent);
+}
+
+/* ============================================================
+   ÁREA PRINCIPAL (FORMULÁRIOS + RESULTADOS)
+   ============================================================ */
+.main-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 24px 120px;
+}
+
+/* Transição entre seções */
+.form-section {
+    animation: section-enter 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.active-form {
+    display: block;
+}
+
+@keyframes section-enter {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   FORM CARD (Contêiner dos Formulários)
+   ============================================================ */
+.form-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 48px;
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+    transition: box-shadow var(--transition-base);
+}
+
+.form-card-header {
+    margin-bottom: 40px;
+}
+
+.form-step-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 12px;
+}
+
+.form-card-title {
+    font-family: 'Stereo Gothic W06 950', 'Montserrat', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.form-card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 520px;
+}
+
+/* ============================================================
+   GRUPOS DE CAMPO DO FORMULÁRIO
+   ============================================================ */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 24px;
+}
+
+/* Linha dupla de campos lado a lado */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary);
+    letter-spacing: 0.01em;
+}
+
+.label-icon {
+    font-size: 15px;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.required-star {
+    color: #EF4444;
+    font-size: 0.75rem;
+}
+
+/* Input base */
+.form-input {
+    width: 100%;
+    height: 52px;
+    padding: 0 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-input);
+    background: var(--bg-white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: var(--primary);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base), background var(--transition-base);
+    outline: none;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+/* Remove setas de number nos WebKit */
+.form-input::-webkit-inner-spin-button,
+.form-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.form-input::placeholder {
+    color: var(--text-light);
+}
+
+.form-input:hover {
+    border-color: rgba(0, 87, 255, 0.3);
+}
+
+.form-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 87, 255, 0.12);
+    background: rgba(0, 87, 255, 0.01);
+}
+
+/* Estado de erro no input */
+.form-input.error {
+    border-color: #EF4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Mensagem de erro */
+.form-error {
+    display: block;
+    font-size: 0.75rem;
+    color: #EF4444;
+    font-weight: 500;
+    min-height: 18px;
+    transition: opacity 0.2s;
+}
+
+/* Wrappers de prefixo/sufixo (R$, %) */
+.input-prefix-wrapper,
+.input-suffix-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-prefix {
+    position: absolute;
+    left: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.input-suffix {
+    position: absolute;
+    right: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Ajustes de padding para inputs com prefixo/sufixo */
+.form-input.has-prefix {
+    padding-left: 42px;
+}
+
+.form-input.has-suffix {
+    padding-right: 42px;
+}
+
+/* Divisória de campos opcionais */
+.optional-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0 24px;
+    color: var(--text-light);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.optional-divider::before,
+.optional-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* ============================================================
+   BOTÕES
+   ============================================================ */
+
+/* Ações do formulário */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+.form-actions-split {
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Botão Beam (identidade principal da marca) */
+.btn-beam {
+    position: relative;
+    padding: 1px;
+    border-radius: 9999px;
+    overflow: hidden;
+    display: inline-flex;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: transform var(--transition-base);
+}
+
+.btn-beam:hover {
+    transform: scale(1.02);
+}
+
+.btn-beam-bg {
+    position: absolute;
+    inset: -100%;
+    background: conic-gradient(from 0deg, transparent 0 340deg, var(--accent) 360deg);
+    animation: spin-beam 2s linear infinite;
+}
+
+@keyframes spin-beam {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-beam-inner {
+    position: relative;
+    background: var(--primary);
+    color: #FFFFFF;
+    border-radius: 9999px;
+    padding: 14px 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    transition: background var(--transition-base), box-shadow var(--transition-base);
+    white-space: nowrap;
+}
+
+/* Efeito shimmer no hover */
+.btn-beam-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%) skewX(-15deg);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.btn-beam:hover .btn-beam-inner::before {
+    opacity: 1;
+    animation: shimmer-anim 1.5s infinite;
+}
+
+@keyframes shimmer-anim {
+    from {
+        transform: translateX(-100%) skewX(-15deg);
+    }
+
+    to {
+        transform: translateX(200%) skewX(-15deg);
+    }
+}
+
+.btn-beam-inner-brand {
+    background: var(--accent);
+}
+
+.btn-beam:hover .btn-beam-inner-brand {
+    background: var(--accent-hover);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn-icon {
+    font-size: 1.1rem;
+}
+
+/* Botão secundário (Voltar / Recalcular) */
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 9999px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+/* ============================================================
+   SEÇÃO DE RESULTADOS
+   ============================================================ */
+
+/* Cabeçalho dos resultados */
+.resultado-header {
+    text-align: center;
+    margin-bottom: 48px;
+    animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.resultado-titulo {
+    font-family: 'Stereo Gothic W06 950', 'Montserrat', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin: 12px 0;
+}
+
+.resultado-subtitulo {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.resultado-subtitulo strong {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* Grid de cartões de resultado */
+.resultado-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+/* Card de destaque ocupando 2 colunas no desktop */
+.card-destaque {
+    grid-column: span 2;
+}
+
+
+/* Cartão com borda animada (mesmo estilo do template) */
+.resultado-card {
+    position: relative;
+    padding: 1px;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    display: flex;
+    background: rgba(9, 9, 11, 0.03);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    animation: card-appear 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.resultado-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.resultado-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.resultado-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.resultado-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+@keyframes card-appear {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Borda cônica girando — border-beam */
+.border-beam-card::before {
+    content: "";
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    top: -25%;
+    left: -25%;
+    background: conic-gradient(from 0deg,
+            transparent 0%,
+            transparent 90%,
+            var(--accent) 95%,
+            transparent 100%);
+    animation: rotate-beam 3.5s linear infinite;
+    z-index: 1;
+}
+
+@keyframes rotate-beam {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.resultado-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -12px rgba(0, 87, 255, 0.18);
+}
+
+/* Interior do card de resultado */
+.border-beam-inner {
+    position: relative;
+    width: 100%;
+    background: #09090b;
+    border-radius: calc(var(--radius-card) - 1px);
+    z-index: 2;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.resultado-card-icon {
+    display: inline-flex;
+}
+
+.rcard-icon-svg {
+    font-size: 2.5rem;
+    transition: transform var(--transition-base);
+}
+
+.text-accent-icon {
+    color: var(--accent);
+}
+
+.resultado-card:hover .rcard-icon-svg {
+    transform: scale(1.1) translateY(-2px);
+}
+
+.resultado-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.rcard-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-light);
+}
+
+/* Valor em destaque dentro do card */
+.rcard-value {
+    font-family: 'Stereo Gothic W06 950', 'Montserrat', sans-serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.02em;
+    transition: color var(--transition-base);
+}
+
+.resultado-card:hover .rcard-value {
+    color: var(--accent);
+}
+
+.rcard-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(0, 87, 255, 0.7);
+}
+
+.rcard-desc {
+    font-size: 0.82rem;
+    color: #9ca3af;
+    line-height: 1.55;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 12px;
+    margin-top: 4px;
+    transition: color var(--transition-base);
+}
+
+.resultado-card:hover .rcard-desc {
+    color: #d1d5db;
+}
+
+/* ============================================================
+   BANNER DE RETORNO TOTAL
+   ============================================================ */
+.retorno-total-banner {
+    background: var(--primary);
+    border-radius: var(--radius-card);
+    padding: 40px 40px 0;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+    animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+/* Glow de fundo no banner */
+.retorno-total-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 87, 255, 0.25) 0%, transparent 70%);
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.retorno-total-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding-bottom: 32px;
+    position: relative;
+    z-index: 1;
+}
+
+.retorno-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.retorno-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.retorno-sublabel {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+.retorno-right {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.retorno-value {
+    font-family: 'Stereo Gothic W06 950', 'Montserrat', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.02em;
+}
+
+.retorno-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+}
+
+/* Barra de progresso decorativa no rodapé do banner */
+.retorno-progress-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 0 -40px;
+    overflow: hidden;
+}
+
+.retorno-progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--accent), #00c6ff);
+    width: 0%;
+    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.8s;
+    border-radius: 0 2px 2px 0;
+}
+
+/* ============================================================
+   DETALHAMENTO DA FÓRMULA
+   ============================================================ */
+.formula-detalhes {
+    margin-bottom: 28px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+
+.formula-summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 24px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    background: var(--bg-light);
+    list-style: none;
+    transition: color var(--transition-base), background var(--transition-base);
+    user-select: none;
+}
+
+.formula-summary:hover {
+    color: var(--accent);
+    background: rgba(0, 87, 255, 0.03);
+}
+
+.summary-icon {
+    font-size: 16px;
+    color: var(--accent);
+}
+
+.formula-content {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--bg-white);
+}
+
+.formula-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.82rem;
+    flex-wrap: wrap;
+}
+
+.formula-item code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(0, 87, 255, 0.07);
+    padding: 2px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.formula-item span {
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.formula-aviso {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    line-height: 1.5;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-top: 4px;
+}
+
+/* ============================================================
+   CTA DOS RESULTADOS
+   ============================================================ */
+.resultado-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 40px;
+    background: var(--bg-light);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+}
+
+.resultado-cta-text h3 {
+    font-family: 'Stereo Gothic W06 950', 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+
+.resultado-cta-text p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    max-width: 400px;
+    line-height: 1.5;
+}
+
+.resultado-cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* ============================================================
+   CARD DESTAQUE (último card — Impacto Total)
+   ============================================================ */
+.card-destaque .border-beam-inner {
+    background: #09090b;
+}
+
+.card-destaque .rcard-value {
+    color: var(--accent) !important;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    margin: 8px 0;
+}
+
+/* ============================================================
+   OVERLAY DE ANÁLISE DE IA
+   ============================================================ */
+
+/* Overlay de fundo com glassmorfismo dark */
+.analise-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(5, 5, 5, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: overlay-fade-in 0.4s ease both;
+}
+
+@keyframes overlay-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.analise-overlay.hidden {
+    display: none !important;
+}
+
+/* Caixa central do overlay */
+.analise-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    max-width: 440px;
+    width: 90%;
+    animation: box-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+@keyframes box-rise {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ícone central com anéis pulsantes */
+.analise-icon-wrapper {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Anéis girando ao redor do ícone */
+.analise-pulse-ring {
+    position: absolute;
+    inset: -16px;
+    border-radius: 9999px;
+    border: 1.5px solid rgba(0, 87, 255, 0.35);
+    animation: ring-pulse 2s ease-in-out infinite;
+}
+
+.analise-pulse-ring.delay-1 {
+    inset: -32px;
+    border-color: rgba(0, 87, 255, 0.15);
+    animation-delay: 0.5s;
+}
+
+@keyframes ring-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.06);
+        opacity: 0.3;
+    }
+}
+
+/* Núcleo do ícone */
+.analise-core {
+    width: 96px;
+    height: 96px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #0057FF 0%, #004ADB 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 40px rgba(0, 87, 255, 0.4), 0 0 80px rgba(0, 87, 255, 0.15);
+    animation: core-spin-glow 3s ease-in-out infinite;
+}
+
+@keyframes core-spin-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 40px rgba(0, 87, 255, 0.4), 0 0 80px rgba(0, 87, 255, 0.15);
+    }
+
+    50% {
+        box-shadow: 0 0 60px rgba(0, 87, 255, 0.6), 0 0 120px rgba(0, 87, 255, 0.25);
+    }
+}
+
+.analise-core-icon {
+    font-size: 2.4rem;
+    color: #fff;
+    animation: icon-rotate 4s linear infinite;
+}
+
+@keyframes icon-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Textos de progresso */
+.analise-texts {
+    text-align: center;
+}
+
+.analise-titulo {
+    font-family: 'Stereo Gothic W06 950', 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.analise-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    min-height: 20px;
+    transition: opacity 0.3s;
+}
+
+/* Barra de progresso da análise */
+.analise-barra-wrap {
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.analise-barra-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, var(--accent), #60a5fa);
+    border-radius: 9999px;
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Lista de steps concluídos */
+.analise-steps {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.analise-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.3);
+    transition: color 0.4s ease;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.analise-step.done {
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(0, 87, 255, 0.06);
+    border-color: rgba(0, 87, 255, 0.2);
+}
+
+.astep-icon {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.15);
+    flex-shrink: 0;
+    transition: color 0.4s ease;
+}
+
+.analise-step.done .astep-icon {
+    color: var(--accent);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg-white);
+    padding: 24px;
+}
+
+.footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.footer-copy {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-light);
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+}
+
+/* ============================================================
+   RESPONSIVIDADE
+   ============================================================ */
+@media (max-width: 768px) {
+    .form-card {
+        padding: 32px 24px;
+    }
+
+    .logo-img {
+        height: 22px;
+    }
+
+    .nav-badge {
+        padding: 4px 10px;
+        gap: 6px;
+    }
+
+    .badge-dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .badge-label {
+        font-size: 8px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .resultado-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-destaque {
+        grid-column: span 1;
+    }
+
+    .retorno-total-inner {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .resultado-cta {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 24px;
+    }
+
+    .resultado-cta-text p {
+        max-width: 100%;
+    }
+
+    .resultado-cta-actions {
+        justify-content: center;
+    }
+
+    .form-actions-split {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+
+    .stepper-container {
+        gap: 0;
+    }
+
+    .step-label {
+        font-size: 8px;
+    }
+
+    .hero-section {
+        padding: 120px 20px 60px;
+    }
+
+    .hero-metrics {
+        gap: 8px;
+    }
+
+    .metric-chip {
+        font-size: 10px;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stepper-wrapper {
+        padding: 16px 12px;
+    }
+
+    .logo-img {
+        height: 18px; /* Ainda menor em telas de 480px */
+    }
+
+    .step-circle {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+    }
+
+    .step-label {
+        display: none;
+        /* Oculta labels em telas muito pequenas */
+    }
+
+    .main-content {
+        padding: 40px 16px 80px;
+    }
+
+    .retorno-total-banner {
+        padding: 28px 24px 0;
+    }
+
+    .retorno-progress-bar {
+        margin: 0 -24px;
+    }
+
+    .formula-detalhes {
+        border-radius: 12px;
+    }
+
+    .resultado-cta {
+        border-radius: 20px;
+    }
+}

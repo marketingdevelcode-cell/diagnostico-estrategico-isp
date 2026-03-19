@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico Estratégico — Máquina.ISP</title>
+    <meta name="description"
+        content="Calcule o impacto estimado da Máquina.ISP na sua operação. Reduza custos, diminua inadimplência, reduza o cancelamento e cresça sua base de clientes.">
+
+    <!-- Fontes da marca -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Montserrat:wght@500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/eb4cad40f0b3b7b5a55b185a44a4889f?family=Stereo+Gothic+W06+950"
+        rel="stylesheet">
+
+    <!-- Ícones -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <!-- Estilos da aplicação -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- ============================================================
+         NAVBAR (Glassmórfica — mesma identidade do template)
+    ============================================================ -->
+    <header id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <!-- Logo texto em fallback caso a imagem não esteja disponível -->
+                <img src="assets/img/logo%20oficial%20m%C3%A1quina%20isp.png" alt="MÁQUINA.ISP"
+                    class="logo-img"
+                    onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block';">
+                <span id="logo-text" class="logo-text-fallback" style="display:none;">MÁQUINA.ISP</span>
+            </div>
+            <div class="nav-badge">
+                <span class="badge-dot"></span>
+                <span class="badge-label">Diagnóstico Gratuito</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================
+         HERO / INTRODUÇÃO
+    ============================================================ -->
+    <section class="hero-section">
+        <!-- Efeitos de glow de fundo -->
+        <div class="glow-point glow-top-left"></div>
+        <div class="glow-point glow-bottom-right"></div>
+        <div class="grid-bg-light"></div>
+
+        <div class="hero-content">
+            <span class="section-label">Diagnóstico Estratégico</span>
+            <div class="headline-container">
+                <div class="headline-glow"></div>
+                <h1 class="hero-headline" id="hero-headline">
+                    Descubra o impacto real<br>
+                    da <span class="text-accent">Máquina.ISP</span><br>
+                    na sua operação
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         STEPPER / INDICADOR DE PROGRESSO
+    ============================================================ -->
+    <div class="stepper-wrapper">
+        <div class="stepper-container">
+            <!-- Etapa 1 -->
+            <div class="step active" id="step-1-indicator">
+                <div class="step-circle">
+                    <iconify-icon icon="solar:user-bold-duotone"></iconify-icon>
+                </div>
+                <span class="step-label">Identificação</span>
+            </div>
+            <div class="step-line" id="line-1-2"></div>
+            <!-- Etapa 2 -->
+            <div class="step" id="step-2-indicator">
+                <div class="step-circle">
+                    <iconify-icon icon="solar:chart-bold-duotone"></iconify-icon>
+                </div>
+                <span class="step-label">Dados Operacionais</span>
+            </div>
+            <div class="step-line" id="line-2-3"></div>
+            <!-- Etapa 3 -->
+            <div class="step" id="step-3-indicator">
+                <div class="step-circle">
+                    <iconify-icon icon="solar:star-bold-duotone"></iconify-icon>
+                </div>
+                <span class="step-label">Diagnóstico</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         OVERLAY DE ANÁLISE DE IA
+         Exibido entre a Etapa 2 e os Resultados
+    ============================================================ -->
+    <div id="overlay-analise" class="analise-overlay hidden">
+        <div class="analise-box">
+            <!-- Ícone central animado -->
+            <div class="analise-icon-wrapper">
+                <div class="analise-pulse-ring"></div>
+                <div class="analise-pulse-ring delay-1"></div>
+                <div class="analise-core">
+                    <iconify-icon icon="solar:cpu-bolt-bold-duotone" class="analise-core-icon"></iconify-icon>
+                </div>
+            </div>
+
+            <!-- Textos dinâmicos de progresso -->
+            <div class="analise-texts">
+                <p class="analise-titulo">Analisando sua operação</p>
+                <p class="analise-status" id="analise-status-text">Carregando dados operacionais...</p>
+            </div>
+
+            <!-- Barra de progresso da análise -->
+            <div class="analise-barra-wrap">
+                <div class="analise-barra-fill" id="analise-barra"></div>
+            </div>
+
+            <!-- Steps de análise simulados -->
+            <ul class="analise-steps" id="analise-steps-list">
+                <li class="analise-step" id="astep-1">
+                    <iconify-icon icon="solar:check-circle-bold" class="astep-icon"></iconify-icon>
+                    <span>Calculando custo operacional</span>
+                </li>
+                <li class="analise-step" id="astep-2">
+                    <iconify-icon icon="solar:check-circle-bold" class="astep-icon"></iconify-icon>
+                    <span>Mapeando inadimplência</span>
+                </li>
+                <li class="analise-step" id="astep-3">
+                    <iconify-icon icon="solar:check-circle-bold" class="astep-icon"></iconify-icon>
+                    <span>Projetando redução de cancelamento</span>
+                </li>
+                <li class="analise-step" id="astep-4">
+                    <iconify-icon icon="solar:check-circle-bold" class="astep-icon"></iconify-icon>
+                    <span>Estimando crescimento de receita</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         ÁREA PRINCIPAL DOS FORMULÁRIOS E RESULTADOS
+    ============================================================ -->
+    <main class="main-content">
+
+        <!-- ==================================================
+             ETAPA 1: Formulário de Cadastro Inicial
+        ================================================== -->
+        <section id="form-cadastro" class="form-section active-form">
+            <div class="form-card">
+                <div class="form-card-header">
+                    <span class="form-step-tag">01 — Identificação</span>
+                    <h2 class="form-card-title">Sobre você e sua empresa</h2>
+                    <p class="form-card-desc">Precisamos de algumas informações básicas para personalizar o seu
+                        diagnóstico.</p>
+                </div>
+
+                <form id="form-cadastro-fields" novalidate>
+
+                    <!-- Campo: Nome Completo -->
+                    <div class="form-group">
+                        <label class="form-label" for="nome">
+                            <iconify-icon icon="solar:user-outline" class="label-icon"></iconify-icon>
+                            Nome Completo <span class="required-star">*</span>
+                        </label>
+                        <input type="text" id="nome" class="form-input" placeholder="Ex.: João Silva"
+                            autocomplete="name" required>
+                        <span class="form-error" id="erro-nome"></span>
+                    </div>
+
+                    <!-- Campo: E-mail -->
+                    <div class="form-group">
+                        <label class="form-label" for="email">
+                            <iconify-icon icon="solar:letter-outline" class="label-icon"></iconify-icon>
+                            E-mail <span class="required-star">*</span>
+                        </label>
+                        <input type="email" id="email" class="form-input" placeholder="Ex.: joao@provedor.com.br"
+                            autocomplete="email" required>
+                        <span class="form-error" id="erro-email"></span>
+                    </div>
+
+                    <!-- Campo: Telefone/WhatsApp -->
+                    <div class="form-group">
+                        <label class="form-label" for="telefone">
+                            <iconify-icon icon="solar:phone-calling-outline" class="label-icon"></iconify-icon>
+                            Telefone / WhatsApp <span class="required-star">*</span>
+                        </label>
+                        <input type="tel" id="telefone" class="form-input" placeholder="(00) 00000-0000"
+                            autocomplete="tel" maxlength="15" required>
+                        <span class="form-error" id="erro-telefone"></span>
+                    </div>
+
+                    <!-- Campo: Nome da Empresa -->
+                    <div class="form-group">
+                        <label class="form-label" for="empresa">
+                            <iconify-icon icon="solar:building-outline" class="label-icon"></iconify-icon>
+                            Nome da Empresa <span class="required-star">*</span>
+                        </label>
+                        <input type="text" id="empresa" class="form-input" placeholder="Ex.: Provedor Internet Ltda."
+                            autocomplete="organization" required>
+                        <span class="form-error" id="erro-empresa"></span>
+                    </div>
+
+                    <!-- Botão Prosseguir -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-beam" id="btn-prosseguir">
+                            <div class="btn-beam-bg"></div>
+                            <div class="btn-beam-inner btn-beam-inner-brand">
+                                Prosseguir
+                                <iconify-icon icon="solar:arrow-right-bold" class="btn-icon"></iconify-icon>
+                            </div>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             ETAPA 2: Formulário de Dados Operacionais
+        ================================================== -->
+        <section id="form-operacional" class="form-section hidden">
+            <div class="form-card">
+                <div class="form-card-header">
+                    <span class="form-step-tag">02 — Dados Operacionais</span>
+                    <h2 class="form-card-title">Como está sua operação hoje?</h2>
+                    <p class="form-card-desc">
+                        Quanto mais precisos os dados, mais fiel será o diagnóstico.
+                        Os campos com asterisco são obrigatórios.
+                    </p>
+                </div>
+
+                <form id="form-operacional-fields" novalidate>
+
+                    <!-- Linha: Número de Clientes + Ticket Médio -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="num-clientes">
+                                <iconify-icon icon="solar:users-group-rounded-outline"
+                                    class="label-icon"></iconify-icon>
+                                Nº de Clientes (base atual) <span class="required-star">*</span>
+                            </label>
+                            <input type="number" id="num-clientes" class="form-input" placeholder="Ex.: 2500" min="1"
+                                required>
+                            <span class="form-error" id="erro-num-clientes"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="ticket-medio">
+                                <iconify-icon icon="solar:tag-price-outline" class="label-icon"></iconify-icon>
+                                Ticket Médio Mensal por Cliente (R$) <span class="required-star">*</span>
+                            </label>
+                            <div class="input-prefix-wrapper">
+                                <span class="input-prefix">R$</span>
+                                <input type="number" id="ticket-medio" class="form-input has-prefix"
+                                    placeholder="Ex.: 100" min="0.01" step="0.01" required>
+                            </div>
+                            <span class="form-error" id="erro-ticket-medio"></span>
+                        </div>
+                    </div>
+
+
+                    <!-- Linha: Inadimplência + Churn -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="inadimplencia">
+                                <iconify-icon icon="solar:danger-triangle-outline" class="label-icon"></iconify-icon>
+                                Inadimplência Atual (%) <span class="required-star">*</span>
+                            </label>
+                            <div class="input-suffix-wrapper">
+                                <input type="number" id="inadimplencia" class="form-input has-suffix"
+                                    placeholder="Ex.: 8" min="0" max="100" step="0.1" required>
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <span class="form-error" id="erro-inadimplencia"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="churn">
+                                <iconify-icon icon="solar:user-cross-outline" class="label-icon"></iconify-icon>
+                                Cancelamento Mensal Atual (%) <span class="required-star">*</span>
+                            </label>
+                            <div class="input-suffix-wrapper">
+                                <input type="number" id="churn" class="form-input has-suffix" placeholder="Ex.: 3"
+                                    min="0" max="100" step="0.1" required>
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <span class="form-error" id="erro-churn"></span>
+                        </div>
+                    </div>
+
+                    <!-- Divisória: Estrutura da Operação -->
+                    <div class="optional-divider">
+                        <span>Estrutura da Operação</span>
+                    </div>
+
+                    <!-- Linha: SDRs + Closers -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="num-sdr">
+                                <iconify-icon icon="solar:phone-calling-outline" class="label-icon"></iconify-icon>
+                                Número de SDRs <span class="required-star">*</span>
+                            </label>
+                            <input type="number" id="num-sdr" class="form-input" placeholder="Ex.: 2" min="0" required>
+                            <span class="form-error" id="erro-num-sdr"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="num-closer">
+                                <iconify-icon icon="solar:handshake-outline" class="label-icon"></iconify-icon>
+                                Número de Vendedores <span class="required-star">*</span>
+                            </label>
+                            <input type="number" id="num-closer" class="form-input" placeholder="Ex.: 2" min="0"
+                                required>
+                            <span class="form-error" id="erro-num-closer"></span>
+                        </div>
+                    </div>
+
+                    <!-- Linha: Financeiro + Suporte -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="num-financeiro">
+                                <iconify-icon icon="solar:wallet-money-outline" class="label-icon"></iconify-icon>
+                                Pessoas no Financeiro <span class="required-star">*</span>
+                            </label>
+                            <input type="number" id="num-financeiro" class="form-input" placeholder="Ex.: 2" min="0"
+                                required>
+                            <span class="form-error" id="erro-num-financeiro"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="num-suporte">
+                                <iconify-icon icon="solar:headphones-round-sound-outline"
+                                    class="label-icon"></iconify-icon>
+                                Pessoas no Suporte <span class="required-star">*</span>
+                            </label>
+                            <input type="number" id="num-suporte" class="form-input" placeholder="Ex.: 3" min="0"
+                                required>
+                            <span class="form-error" id="erro-num-suporte"></span>
+                        </div>
+                    </div>
+
+                    <!-- Pós-venda (campo único centralizado) -->
+                    <div class="form-group">
+                        <label class="form-label" for="num-posvenda">
+                            <iconify-icon icon="solar:star-outline" class="label-icon"></iconify-icon>
+                            Pessoas no Pós-venda <span class="required-star">*</span>
+                        </label>
+                        <input type="number" id="num-posvenda" class="form-input" placeholder="Ex.: 2" min="0" required>
+                        <span class="form-error" id="erro-num-posvenda"></span>
+                    </div>
+
+                    <!-- Divisória Campos Opcionais -->
+                    <div class="optional-divider">
+                        <span>Campos Opcionais</span>
+                    </div>
+
+                    <!-- Linha: Leads/mês + Taxa de Conversão -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="leads">
+                                <iconify-icon icon="solar:heart-pulse-outline" class="label-icon"></iconify-icon>
+                                Número de Leads / Mês
+                            </label>
+                            <input type="number" id="leads" class="form-input" placeholder="Ex.: 500" min="0">
+                            <span class="form-error" id="erro-leads"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="taxa-conversao">
+                                <iconify-icon icon="solar:transfer-horizontal-outline"
+                                    class="label-icon"></iconify-icon>
+                                Taxa de Conversão de Leads (%)
+                            </label>
+                            <div class="input-suffix-wrapper">
+                                <input type="number" id="taxa-conversao" class="form-input has-suffix"
+                                    placeholder="Ex.: 15" min="0" max="100" step="0.1">
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <span class="form-error" id="erro-taxa-conversao"></span>
+                        </div>
+                    </div>
+
+                    <!-- Ações do Formulário -->
+                    <div class="form-actions form-actions-split">
+                        <button type="button" class="btn-secondary" id="btn-voltar">
+                            <iconify-icon icon="solar:arrow-left-bold" class="btn-icon"></iconify-icon>
+                            Voltar
+                        </button>
+                        <button type="submit" class="btn-beam" id="btn-calcular">
+                            <div class="btn-beam-bg"></div>
+                            <div class="btn-beam-inner btn-beam-inner-brand">
+                                Calcular Diagnóstico
+                                <iconify-icon icon="solar:calculator-bold" class="btn-icon"></iconify-icon>
+                            </div>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================================================
+             ETAPA 3: Seção de Resultados do Diagnóstico
+        ================================================== -->
+        <section id="secao-resultados" class="form-section hidden">
+
+            <!-- Cabeçalho do diagnóstico com identificação do provedor -->
+            <div class="resultado-header">
+                <span class="form-step-tag">03 — Diagnóstico Concluído</span>
+                <h2 class="resultado-titulo">
+                    Seu Potencial de<br>
+                    <span class="text-accent">Impacto Estimado</span>
+                </h2>
+                <p class="resultado-subtitulo">
+                    Com base nos seus dados, identificamos oportunidades reais de aumento de receita e redução de custos
+                    na sua operação.
+                </p>
+                <p class="resultado-subtitulo" style="margin-top:4px; font-size:0.82rem;">
+                    Diagnóstico para <strong id="resultado-empresa-nome"></strong>.
+                </p>
+            </div>
+
+            <!-- Grid de cartões de resultado (5 métricas) -->
+            <div class="resultado-grid resultado-grid-5">
+
+                <!-- Card 1: Recuperação de Inadimplência -->
+                <div class="resultado-card border-beam-card" id="card-inadimplencia">
+                    <div class="border-beam-inner">
+                        <div class="resultado-card-icon">
+                            <iconify-icon icon="solar:wallet-money-bold-duotone"
+                                class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                        </div>
+                        <div class="resultado-card-body">
+                            <span class="rcard-label">Recuperação de Inadimplência</span>
+                            <span class="rcard-value" id="val-recuperacao-inad">R$ 0,00</span>
+                            <span class="rcard-tag">40% de recuperação estimada / mês</span>
+                        </div>
+                        <p class="rcard-desc">
+                            Cobranças escalonadas e precisas recuperam faturamento antes que os títulos virem passivos.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Recuperação de Churn -->
+                <div class="resultado-card border-beam-card" id="card-churn">
+                    <div class="border-beam-inner">
+                        <div class="resultado-card-icon">
+                            <iconify-icon icon="solar:user-cross-bold-duotone"
+                                class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                        </div>
+                        <div class="resultado-card-body">
+                            <span class="rcard-label">Recuperação de Cancelamento</span>
+                            <span class="rcard-value" id="val-retencao-churn">R$ 0,00</span>
+                            <span class="rcard-tag">30% de retenção estimada / mês</span>
+                        </div>
+                        <p class="rcard-desc">
+                            Identificação precoce do comportamento de cancelamento gera ações preventivas baseadas em
+                            dados.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Ganho com Novos Contratos -->
+                <div class="resultado-card border-beam-card" id="card-novos-contratos">
+                    <div class="border-beam-inner">
+                        <div class="resultado-card-icon">
+                            <iconify-icon icon="solar:rocket-bold-duotone"
+                                class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                        </div>
+                        <div class="resultado-card-body">
+                            <span class="rcard-label">Ganho com Novos Contratos</span>
+                            <span class="rcard-value" id="val-novos-contratos">R$ 0,00</span>
+                            <span class="rcard-tag">+20% de conversão estimada / mês</span>
+                        </div>
+                        <p class="rcard-desc">
+                            Prospecção autônoma e qualificação precisa aumentam a taxa de fechamento de novos contratos.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Economia Mensal em Custo Operacional (R$) -->
+                <div class="resultado-card border-beam-card" id="card-economia">
+                    <div class="border-beam-inner">
+                        <div class="resultado-card-icon">
+                            <iconify-icon icon="solar:graph-down-bold-duotone"
+                                class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                        </div>
+                        <div class="resultado-card-body">
+                            <span class="rcard-label">Economia Mensal em Custo Operacional</span>
+                            <span class="rcard-value" id="val-economia-custo">R$ 0,00</span>
+                            <span class="rcard-tag">Redução direta na folha operacional / mês</span>
+                        </div>
+                        <p class="rcard-desc">
+                            Resultado financeiro da substituição de processos manuais por automação com governança.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 5: Redução do Custo Operacional (%) - DESTAQUE -->
+                <div class="resultado-card border-beam-card card-destaque" id="card-reducao-custo">
+                    <div class="border-beam-inner">
+                        <div class="resultado-card-icon">
+                            <iconify-icon icon="solar:pie-chart-2-bold-duotone"
+                                class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                        </div>
+                        <div class="resultado-card-body">
+                            <span class="rcard-label">Redução do Custo Operacional</span>
+                            <span class="rcard-value" id="val-percentual-reducao">0%</span>
+                            <span class="rcard-tag">Percentual estimado de redução</span>
+                        </div>
+                        <p class="rcard-desc">
+                            Agentes de IA assumem tarefas repetitivas, reduzindo drasticamente a dependência
+                            humana.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+            <!-- CTA de conversão -->
+            <div class="resultado-cta">
+                <div class="resultado-cta-text">
+                    <h3>Pronto para instalar a Máquina?</h3>
+                    <p>Agende uma reunião com nossos especialistas e receba um plano de implementação personalizado.</p>
+                </div>
+                <div class="resultado-cta-actions">
+                    <button class="btn-beam btn-beam-cta" id="btn-agendar">
+                        <div class="btn-beam-bg"></div>
+                        <div class="btn-beam-inner btn-beam-inner-brand">
+                            Agendar Reunião
+                            <iconify-icon icon="solar:calendar-mark-bold-duotone" class="btn-icon"></iconify-icon>
+                        </div>
+                    </button>
+                    <button class="btn-secondary" id="btn-recalcular">
+                        <iconify-icon icon="solar:restart-bold" class="btn-icon"></iconify-icon>
+                        Recalcular
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span class="footer-copy">© 2026 MÁQUINA.ISP. Todos os direitos reservados.</span>
+            <div class="footer-links">
+                <a href="#">Termos</a>
+                <a href="#">Privacidade (LGPD)</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script principal da aplicação -->
+    <script src="assets/js/script.js"></script>
+
+</body>
+
+</html>
