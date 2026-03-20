@@ -22,7 +22,7 @@ const salarios = {
     PosVenda:   3500
 };
 
-const fatorCusto = 1.5; // Encargos + benefícios sobre a folha bruta
+const fatorCusto = 2.0; // Encargos + benefícios sobre a folha bruta (Fator 2X)
 
 // Ganhos estimados pela solução Máquina.ISP
 const reducaoInadimplencia    = 0.4;  // 40% do valor inadimplente recuperado
@@ -86,17 +86,23 @@ const campoFinanceiro = document.getElementById('num-financeiro');
 const campoSuporte    = document.getElementById('num-suporte');
 const campoPosVenda   = document.getElementById('num-posvenda');
 
-// Campos opcionais
-const campoLeads     = document.getElementById('leads');
-const campoConversao = document.getElementById('taxa-conversao');
-
 // Elementos de resultado
 const resultadoEmpresaNome  = document.getElementById('resultado-empresa-nome');
 const valRecuperacaoInad    = document.getElementById('val-recuperacao-inad');
 const valRetencaoChurn      = document.getElementById('val-retencao-churn');
-const valNovosContratos     = document.getElementById('val-novos-contratos');
-const valPercentualReducao  = document.getElementById('val-percentual-reducao');
 const valEconomiaCusto      = document.getElementById('val-economia-custo');
+
+// Novos elementos do Redesign 
+const valImpactoTotal       = document.getElementById('val-impacto-total');
+
+const compCustoAtual  = document.getElementById('comp-custo-atual');
+const compPerdaAtual  = document.getElementById('comp-perda-atual');
+const compCustoNovo   = document.getElementById('comp-custo-novo');
+const compReceitaNova = document.getElementById('comp-receita-nova');
+
+const cenarioModerado      = document.getElementById('cenario-moderado');
+const cenarioIntermediario = document.getElementById('cenario-intermediario');
+const cenarioOtimista      = document.getElementById('cenario-otimista');
 
 /* ============================================================
    UTILITÁRIOS
@@ -279,16 +285,6 @@ function validarOperacional() {
         }
     });
 
-    // Taxa de conversão: opcional, mas se preenchida deve ser 0–100
-    if (campoConversao && campoConversao.value !== '') {
-        if (lerNumero(campoConversao) < 0 || lerNumero(campoConversao) > 100) {
-            mostrarErro('erro-taxa-conversao', 'O percentual deve estar entre 0 e 100.', campoConversao);
-            valido = false;
-        } else {
-            limparErro('erro-taxa-conversao', campoConversao);
-        }
-    }
-
     return valido;
 }
 
@@ -368,8 +364,6 @@ function calcularDiagnostico() {
     const numFinanceiro = lerNumero(campoFinanceiro);
     const numSuporte    = lerNumero(campoSuporte);
     const numPosVenda   = lerNumero(campoPosVenda);
-    const leads         = campoLeads     ? lerNumero(campoLeads)     : 0;
-    const conversao     = campoConversao ? lerNumero(campoConversao) : 0;
 
     // --- 1. Faturamento (calculado automaticamente) ---
     const faturamento = numClientes * ticketMedio;
@@ -383,56 +377,64 @@ function calcularDiagnostico() {
 
     const custoOperacional = folhaBruta * fatorCusto;
 
-    // --- 3. Inadimplência ---
     const perdaInadimplencia        = faturamento * (inadimplencia / 100);
     const recuperacaoInadimplencia  = perdaInadimplencia * reducaoInadimplencia;
-
+    
+    // Calcula a nova taxa de inadimplência (ex: de 12% reduz 40%, cai para 7.2%)
+    const novaTaxaInad = inadimplencia - (inadimplencia * reducaoInadimplencia);
+    
     // --- 4. Churn ---
     const perdaChurn        = faturamento * (churn / 100);
     const recuperacaoChurn  = perdaChurn * reducaoChurn;
 
-    // --- 5. Novos contratos ---
-    let ganhoNovosContratos;
-    if (leads > 0) {
-        // Se houver leads, calcula 20% de fechamento
-        const novosClientes = leads * taxaConversaoLeads;
-        ganhoNovosContratos = novosClientes * ticketMedio;
-    } else {
-        // Fallback: 15% de aumento na base atual
-        const novosClientes = numClientes * aumentoCrescimento;
-        ganhoNovosContratos = novosClientes * ticketMedio;
-    }
-
-
-    // --- 6. Redução de custo ---
+    // --- 5. Redução de custo ---
     const economiaOperacional = custoOperacional * reducaoCustoOperacional;
-    const percentualReducao   = reducaoCustoOperacional * 100; // sempre 50%
 
-    // --- 7. Impacto financeiro total ---
-    const retornoTotal = recuperacaoInadimplencia
-                       + recuperacaoChurn
-                       + ganhoNovosContratos
-                       + economiaOperacional;
+    // --- 6. Impacto financeiro total (Economia + Churn, excluindo Inadimplência conforme solicitado) ---
+    const retornoTotal = recuperacaoChurn + economiaOperacional;
+
+    // --- 8. Comparativo ---
+    const perdaAtual = perdaInadimplencia + perdaChurn;
+    const custoNovo = custoOperacional - economiaOperacional;
+
+    // --- 9. Cenários ---
+    const valModerado = retornoTotal * 0.5;
+    const valOtimista = retornoTotal * 1.5;
 
     // --- Exibição dos valores ---
     resultadoEmpresaNome.textContent = dadosCadastro.empresa;
 
-    valRecuperacaoInad.textContent   = formatarMoeda(recuperacaoInadimplencia);
+    valRecuperacaoInad.textContent   = 'Cairá p/ ' + novaTaxaInad.toFixed(1).replace('.', ',') + '%';
     valRetencaoChurn.textContent     = formatarMoeda(recuperacaoChurn);
-    valNovosContratos.textContent    = formatarMoeda(ganhoNovosContratos);
-    valPercentualReducao.textContent = percentualReducao.toFixed(0) + '%';
     valEconomiaCusto.textContent     = formatarMoeda(economiaOperacional);
+    
+    valImpactoTotal.textContent      = formatarMoeda(retornoTotal);
+
+    compCustoAtual.textContent  = formatarMoeda(custoOperacional);
+    compPerdaAtual.textContent  = formatarMoeda(perdaAtual);
+    compCustoNovo.textContent   = formatarMoeda(custoNovo);
+    compReceitaNova.textContent = formatarMoeda(retornoTotal);
+
+    cenarioModerado.textContent      = formatarMoeda(valModerado);
+    cenarioIntermediario.textContent = formatarMoeda(retornoTotal);
+    cenarioOtimista.textContent      = formatarMoeda(valOtimista);
 
     // --- Animação de contagem progressiva ---
-    animarContador(valRecuperacaoInad, recuperacaoInadimplencia);
-    animarContador(valRetencaoChurn,   recuperacaoChurn);
-    animarContador(valNovosContratos,  ganhoNovosContratos);
-    animarContador(valEconomiaCusto,   economiaOperacional);
+    // Passando true no terceiro parâmetro para prefixar "Cairá p/ " e adicionar o "%" ao final
+    animarContador(valRecuperacaoInad,   novaTaxaInad, 800, true, 'Cairá p/ '); 
+    animarContador(valRetencaoChurn,     recuperacaoChurn);
+    animarContador(valEconomiaCusto,     economiaOperacional);
+    
+    animarContador(valImpactoTotal,      retornoTotal);
 
-    // O card de % não usa contador monetário — mantém o valor fixo
-    setTimeout(() => {
-        valPercentualReducao.textContent = percentualReducao.toFixed(0) + '%';
-    }, 50);
+    animarContador(compCustoAtual,  custoOperacional);
+    animarContador(compPerdaAtual,  perdaAtual);
+    animarContador(compCustoNovo,   custoNovo);
+    animarContador(compReceitaNova, retornoTotal);
+
+    animarContador(cenarioModerado,      valModerado);
+    animarContador(cenarioIntermediario, retornoTotal);
+    animarContador(cenarioOtimista,      valOtimista);
 }
 
 /**
@@ -440,8 +442,10 @@ function calcularDiagnostico() {
  * @param {HTMLElement} elemento
  * @param {number} valorFinal
  * @param {number} [duracao=800]
+ * @param {boolean} [isPercentual=false]
+ * @param {string} [prefixo=""]
  */
-function animarContador(elemento, valorFinal, duracao = 800) {
+function animarContador(elemento, valorFinal, duracao = 800, isPercentual = false, prefixo = "") {
     const inicio = performance.now();
 
     function passo(agora) {
@@ -449,12 +453,22 @@ function animarContador(elemento, valorFinal, duracao = 800) {
         const progresso = Math.min(decorrido / duracao, 1);
         const progressoSuave = 1 - Math.pow(1 - progresso, 3); // ease-out cúbico
 
-        elemento.textContent = formatarMoeda(valorFinal * progressoSuave);
+        const valorAtual = valorFinal * progressoSuave;
+
+        if (isPercentual) {
+            elemento.textContent = prefixo + valorAtual.toFixed(1).replace('.', ',') + '%';
+        } else {
+            elemento.textContent = prefixo + formatarMoeda(valorAtual);
+        }
 
         if (progresso < 1) {
             requestAnimationFrame(passo);
         } else {
-            elemento.textContent = formatarMoeda(valorFinal);
+            if (isPercentual) {
+                elemento.textContent = prefixo + valorFinal.toFixed(1).replace('.', ',') + '%';
+            } else {
+                elemento.textContent = prefixo + formatarMoeda(valorFinal);
+            }
         }
     }
 
@@ -593,10 +607,6 @@ campoFinanceiro.addEventListener('input', () => limparErro('erro-num-financeiro'
 campoSuporte.addEventListener('input',    () => limparErro('erro-num-suporte', campoSuporte));
 campoPosVenda.addEventListener('input',   () => limparErro('erro-num-posvenda', campoPosVenda));
 
-// Opcional
-if (campoConversao) {
-    campoConversao.addEventListener('input', () => limparErro('erro-taxa-conversao', campoConversao));
-}
 
 /* ============================================================
    EFEITO NAVBAR AO ROLAR

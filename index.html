@@ -157,7 +157,7 @@
         <section id="form-cadastro" class="form-section active-form">
             <div class="form-card">
                 <div class="form-card-header">
-                    <span class="form-step-tag">01 — Identificação</span>
+                    <span class="form-step-tag font-numeros">01 — Identificação</span>
                     <h2 class="form-card-title">Sobre você e sua empresa</h2>
                     <p class="form-card-desc">Precisamos de algumas informações básicas para personalizar o seu
                         diagnóstico.</p>
@@ -230,7 +230,7 @@
         <section id="form-operacional" class="form-section hidden">
             <div class="form-card">
                 <div class="form-card-header">
-                    <span class="form-step-tag">02 — Dados Operacionais</span>
+                    <span class="form-step-tag font-numeros">02 — Dados Operacionais</span>
                     <h2 class="form-card-title">Como está sua operação hoje?</h2>
                     <p class="form-card-desc">
                         Quanto mais precisos os dados, mais fiel será o diagnóstico.
@@ -259,8 +259,8 @@
                                 Ticket Médio Mensal por Cliente (R$) <span class="required-star">*</span>
                             </label>
                             <div class="input-prefix-wrapper">
-                                <span class="input-prefix">R$</span>
-                                <input type="number" id="ticket-medio" class="form-input has-prefix"
+                                <span class="input-prefix font-numeros">R$</span>
+                                <input type="number" id="ticket-medio" class="form-input has-prefix font-numeros"
                                     placeholder="Ex.: 100" min="0.01" step="0.01" required>
                             </div>
                             <span class="form-error" id="erro-ticket-medio"></span>
@@ -276,9 +276,9 @@
                                 Inadimplência Atual (%) <span class="required-star">*</span>
                             </label>
                             <div class="input-suffix-wrapper">
-                                <input type="number" id="inadimplencia" class="form-input has-suffix"
+                                <input type="number" id="inadimplencia" class="form-input has-suffix font-numeros"
                                     placeholder="Ex.: 8" min="0" max="100" step="0.1" required>
-                                <span class="input-suffix">%</span>
+                                <span class="input-suffix font-numeros">%</span>
                             </div>
                             <span class="form-error" id="erro-inadimplencia"></span>
                         </div>
@@ -289,9 +289,9 @@
                                 Cancelamento Mensal Atual (%) <span class="required-star">*</span>
                             </label>
                             <div class="input-suffix-wrapper">
-                                <input type="number" id="churn" class="form-input has-suffix" placeholder="Ex.: 3"
+                                <input type="number" id="churn" class="form-input has-suffix font-numeros" placeholder="Ex.: 3"
                                     min="0" max="100" step="0.1" required>
-                                <span class="input-suffix">%</span>
+                                <span class="input-suffix font-numeros">%</span>
                             </div>
                             <span class="form-error" id="erro-churn"></span>
                         </div>
@@ -358,36 +358,7 @@
                         <span class="form-error" id="erro-num-posvenda"></span>
                     </div>
 
-                    <!-- Divisória Campos Opcionais -->
-                    <div class="optional-divider">
-                        <span>Campos Opcionais</span>
-                    </div>
-
-                    <!-- Linha: Leads/mês + Taxa de Conversão -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label" for="leads">
-                                <iconify-icon icon="solar:heart-pulse-outline" class="label-icon"></iconify-icon>
-                                Número de Leads / Mês
-                            </label>
-                            <input type="number" id="leads" class="form-input" placeholder="Ex.: 500" min="0">
-                            <span class="form-error" id="erro-leads"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="taxa-conversao">
-                                <iconify-icon icon="solar:transfer-horizontal-outline"
-                                    class="label-icon"></iconify-icon>
-                                Taxa de Conversão de Leads (%)
-                            </label>
-                            <div class="input-suffix-wrapper">
-                                <input type="number" id="taxa-conversao" class="form-input has-suffix"
-                                    placeholder="Ex.: 15" min="0" max="100" step="0.1">
-                                <span class="input-suffix">%</span>
-                            </div>
-                            <span class="form-error" id="erro-taxa-conversao"></span>
-                        </div>
-                    </div>
+                    <!-- Divisória Campos Opcionais (Removida junto com Leads) -->
 
                     <!-- Ações do Formulário -->
                     <div class="form-actions form-actions-split">
@@ -415,7 +386,7 @@
 
             <!-- Cabeçalho do diagnóstico com identificação do provedor -->
             <div class="resultado-header">
-                <span class="form-step-tag">03 — Diagnóstico Concluído</span>
+                <span class="form-step-tag font-numeros">03 — Diagnóstico Concluído</span>
                 <h2 class="resultado-titulo">
                     Seu Potencial de<br>
                     <span class="text-accent">Impacto Estimado</span>
@@ -429,102 +400,177 @@
                 </p>
             </div>
 
-            <!-- Grid de cartões de resultado (5 métricas) -->
-            <div class="resultado-grid resultado-grid-5">
+            <!-- Lista de Resultados (Substitui o antigo Grid) -->
+            <div class="resultados-lista">
 
-                <!-- Card 1: Recuperação de Inadimplência -->
-                <div class="resultado-card border-beam-card" id="card-inadimplencia">
-                    <div class="border-beam-inner">
-                        <div class="resultado-card-icon">
-                            <iconify-icon icon="solar:wallet-money-bold-duotone"
-                                class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                <!-- Row 1: Recuperação de Inadimplência -->
+                <div class="resultado-item premium-item-card" id="card-inadimplencia">
+                    <div class="r-item-inner">
+                        <div class="r-item-left">
+                            <div class="resultado-card-icon">
+                                <iconify-icon icon="solar:wallet-money-bold-duotone" class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                            </div>
+                            <div class="r-item-text">
+                                <span class="r-item-label">Redução de Inadimplência (Nova Taxa)</span>
+                                <p class="r-item-desc">Atuando com réguas de cobrança automatizadas e IA, projetamos uma <strong>redução de 40%</strong> sobre a sua taxa atual.</p>
+                            </div>
                         </div>
-                        <div class="resultado-card-body">
-                            <span class="rcard-label">Recuperação de Inadimplência</span>
-                            <span class="rcard-value" id="val-recuperacao-inad">R$ 0,00</span>
-                            <span class="rcard-tag">40% de recuperação estimada / mês</span>
+                        <div class="r-item-right">
+                            <span class="rcard-value font-numeros" id="val-recuperacao-inad">R$ 0,00</span>
                         </div>
-                        <p class="rcard-desc">
-                            Cobranças escalonadas e precisas recuperam faturamento antes que os títulos virem passivos.
-                        </p>
                     </div>
                 </div>
 
-                <!-- Card 2: Recuperação de Churn -->
-                <div class="resultado-card border-beam-card" id="card-churn">
-                    <div class="border-beam-inner">
-                        <div class="resultado-card-icon">
-                            <iconify-icon icon="solar:user-cross-bold-duotone"
-                                class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                <!-- Row 3: Economia em Custo Operacional -->
+                <div class="resultado-item premium-item-card" id="card-economia">
+                    <div class="r-item-inner">
+                        <div class="r-item-left">
+                            <div class="resultado-card-icon">
+                                <iconify-icon icon="solar:graph-down-bold-duotone" class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                            </div>
+                            <div class="r-item-text">
+                                <span class="r-item-label">Economia em Custo Operacional</span>
+                                <p class="r-item-desc">Redução drástica na infraestrutura e folha de pagamento substituindo processos manuais por IA.</p>
+                            </div>
                         </div>
-                        <div class="resultado-card-body">
-                            <span class="rcard-label">Recuperação de Cancelamento</span>
-                            <span class="rcard-value" id="val-retencao-churn">R$ 0,00</span>
-                            <span class="rcard-tag">30% de retenção estimada / mês</span>
+                        <div class="r-item-right">
+                            <span class="rcard-value font-numeros" id="val-economia-custo">R$ 0,00</span>
                         </div>
-                        <p class="rcard-desc">
-                            Identificação precoce do comportamento de cancelamento gera ações preventivas baseadas em
-                            dados.
-                        </p>
                     </div>
                 </div>
 
-                <!-- Card 3: Ganho com Novos Contratos -->
-                <div class="resultado-card border-beam-card" id="card-novos-contratos">
-                    <div class="border-beam-inner">
-                        <div class="resultado-card-icon">
-                            <iconify-icon icon="solar:rocket-bold-duotone"
-                                class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                <!-- Row 4: Recuperação de Cancelamento -->
+                <div class="resultado-item premium-item-card" id="card-churn">
+                    <div class="r-item-inner">
+                        <div class="r-item-left">
+                            <div class="resultado-card-icon">
+                                <iconify-icon icon="solar:user-cross-bold-duotone" class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                            </div>
+                            <div class="r-item-text">
+                                <span class="r-item-label">Retenção de Cancelamento (Churn)</span>
+                                <p class="r-item-desc">Ações preventivas e identificação precoce do comportamento de cancelamento (30% de retenção estimada).</p>
+                            </div>
                         </div>
-                        <div class="resultado-card-body">
-                            <span class="rcard-label">Ganho com Novos Contratos</span>
-                            <span class="rcard-value" id="val-novos-contratos">R$ 0,00</span>
-                            <span class="rcard-tag">+20% de conversão estimada / mês</span>
+                        <div class="r-item-right">
+                            <span class="rcard-value font-numeros" id="val-retencao-churn">R$ 0,00</span>
                         </div>
-                        <p class="rcard-desc">
-                            Prospecção autônoma e qualificação precisa aumentam a taxa de fechamento de novos contratos.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 4: Economia Mensal em Custo Operacional (R$) -->
-                <div class="resultado-card border-beam-card" id="card-economia">
-                    <div class="border-beam-inner">
-                        <div class="resultado-card-icon">
-                            <iconify-icon icon="solar:graph-down-bold-duotone"
-                                class="rcard-icon-svg text-accent-icon"></iconify-icon>
-                        </div>
-                        <div class="resultado-card-body">
-                            <span class="rcard-label">Economia Mensal em Custo Operacional</span>
-                            <span class="rcard-value" id="val-economia-custo">R$ 0,00</span>
-                            <span class="rcard-tag">Redução direta na folha operacional / mês</span>
-                        </div>
-                        <p class="rcard-desc">
-                            Resultado financeiro da substituição de processos manuais por automação com governança.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 5: Redução do Custo Operacional (%) - DESTAQUE -->
-                <div class="resultado-card border-beam-card card-destaque" id="card-reducao-custo">
-                    <div class="border-beam-inner">
-                        <div class="resultado-card-icon">
-                            <iconify-icon icon="solar:pie-chart-2-bold-duotone"
-                                class="rcard-icon-svg text-accent-icon"></iconify-icon>
-                        </div>
-                        <div class="resultado-card-body">
-                            <span class="rcard-label">Redução do Custo Operacional</span>
-                            <span class="rcard-value" id="val-percentual-reducao">0%</span>
-                            <span class="rcard-tag">Percentual estimado de redução</span>
-                        </div>
-                        <p class="rcard-desc">
-                            Agentes de IA assumem tarefas repetitivas, reduzindo drasticamente a dependência
-                            humana.
-                        </p>
                     </div>
                 </div>
 
             </div>
+
+            <!-- Box Impacto Total Estimado -->
+            <div class="resultado-total-box" id="card-reducao-custo">
+                <div class="premium-dark-card bg-dark">
+                    <span class="rcard-tag text-light">Impacto Financeiro Total Estimado / Mês</span>
+                    <h2 class="total-value font-numeros text-accent" id="val-impacto-total">R$ 0,00</h2>
+                    <p class="rcard-desc text-muted">A soma do aumento de receita, redução de custos e recuperação de perdas que a Máquina.ISP pode trazer para o seu negócio.</p>
+                </div>
+            </div>
+
+            <!-- Box Payback ROI (NOVO) -->
+            <div class="payback-box">
+                <div class="payback-content">
+                    <div class="payback-icon">
+                        <iconify-icon icon="solar:clock-circle-bold-duotone"></iconify-icon>
+                    </div>
+                    <div class="payback-info">
+                        <span class="payback-label">Payback Estimado (ROI)</span>
+                        <div class="payback-value font-numeros">3 Meses</div>
+                    </div>
+                </div>
+                <div class="payback-marketing">
+                    Recuperação Total do Investimento em Tempo Recorde
+                </div>
+            </div>
+
+            <!-- Comparativo Atual vs C/ Máquina -->
+            <div class="comparativo-section">
+                <h3 class="secao-titulo-secundario">Comparativo do seu Cenário</h3>
+                <div class="comparativo-grid">
+                    <div class="comp-card atual">
+                        <iconify-icon icon="solar:info-circle-line-duotone" class="comp-icon"></iconify-icon>
+                        <span class="comp-title">Sem a Máquina.ISP</span>
+                        <div class="comp-row">
+                            <span class="comp-label">
+                                <span class="tooltip-trigger" data-tooltip="Soma salarial da equipe (SDR, Closer, etc.) com encargos de 2.0x inclusos.">
+                                    Custo Operacional:
+                                    <iconify-icon icon="solar:question-circle-line-duotone" class="tip-icon"></iconify-icon>
+                                </span>
+                            </span>
+                            <span class="comp-val font-numeros" id="comp-custo-atual">R$ 0,00</span>
+                        </div>
+                        <div class="comp-row text-danger">
+                            <span class="comp-label">
+                                <span class="tooltip-trigger" data-tooltip="Soma do faturamento mensal comprometido por atrasos de pagamento (Inadimplência) e perda de clientes (Churn).">
+                                    Receita em Risco (Mensal):
+                                    <iconify-icon icon="solar:question-circle-line-duotone" class="tip-icon"></iconify-icon>
+                                </span>
+                            </span>
+                            <span class="comp-val font-numeros" id="comp-perda-atual">R$ 0,00</span>
+                        </div>
+                    </div>
+                    <div class="comp-card futuro">
+                        <iconify-icon icon="solar:rocket-line-duotone" class="comp-icon text-accent"></iconify-icon>
+                        <span class="comp-title text-accent">Com a Máquina.ISP</span>
+                        <div class="comp-row">
+                            <span class="comp-label">
+                                <span class="tooltip-trigger" data-tooltip="Custo da equipe após automação e otimização de 50% com a Máquina.ISP.">
+                                    Novo Custo Operacional:
+                                    <iconify-icon icon="solar:question-circle-line-duotone" class="tip-icon"></iconify-icon>
+                                </span>
+                            </span>
+                            <span class="comp-val font-numeros" id="comp-custo-novo">R$ 0,00</span>
+                        </div>
+                        <div class="comp-row text-success">
+                            <span class="comp-label">
+                                <span class="tooltip-trigger" data-tooltip="Soma mensal da retenção de churn e economia operacional gerada.">
+                                    Receita Ganha Total:
+                                    <iconify-icon icon="solar:question-circle-line-duotone" class="tip-icon"></iconify-icon>
+                                </span>
+                            </span>
+                            <span class="comp-val font-numeros" id="comp-receita-nova">R$ 0,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Cenários (Moderado, Intermediário, Otimista) -->
+            <div class="cenarios-section">
+                <h3 class="secao-titulo-secundario text-center">Seu Potencial de Escala em 3 Cenários</h3>
+                <div class="cenarios-grid">
+                    <!-- Censário Moderado -->
+                    <div class="cenario-card conservador premium-card">
+                        <div class="premium-card-inner">
+                            <span class="c-tag">Conservador</span>
+                            <h4 class="c-title">Cenário Moderado (Mensal)</h4>
+                            <p class="c-desc">Considerando atingir -50% dos resultados projetados.</p>
+                            <div class="c-valor font-numeros" id="cenario-moderado">R$ 0,00</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cenário Intermediário -->
+                    <div class="cenario-card intermediario premium-card destaque">
+                        <div class="premium-card-inner">
+                            <span class="c-tag bg-accent text-white">Ideal</span>
+                            <h4 class="c-title">Cenário Intermediário (Mensal)</h4>
+                            <p class="c-desc">Projeção principal validada pelo cálculo do diagnóstico.</p>
+                            <div class="c-valor font-numeros text-accent" id="cenario-intermediario">R$ 0,00</div>
+                        </div>
+                    </div>
+
+                    <!-- Cenário Otimista -->
+                    <div class="cenario-card otimista premium-card">
+                        <div class="premium-card-inner">
+                            <span class="c-tag text-success">Otimista</span>
+                            <h4 class="c-title">Cenário Mapeado (Mensal)</h4>
+                            <p class="c-desc">Extrapolando e otimizando operação acima de +50%.</p>
+                            <div class="c-valor font-numeros text-success" id="cenario-otimista">R$ 0,00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
 
