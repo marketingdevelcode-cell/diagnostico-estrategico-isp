@@ -39,7 +39,9 @@ let dadosCadastro = {
     nome: '',
     email: '',
     telefone: '',
-    empresa: ''
+    empresa: '',
+    cargo: '',
+    erp: ''
 };
 
 /* ============================================================
@@ -72,6 +74,8 @@ const campoNome      = document.getElementById('nome');
 const campoEmail     = document.getElementById('email');
 const campoTelefone  = document.getElementById('telefone');
 const campoEmpresa   = document.getElementById('empresa');
+const campoCargo     = document.getElementById('cargo');
+const campoErp       = document.getElementById('erp');
 
 // Campos do formulário operacional — dados do negócio
 const campoNumClientes   = document.getElementById('num-clientes');
@@ -213,6 +217,20 @@ function validarCadastro() {
         valido = false;
     } else {
         limparErro('erro-empresa', campoEmpresa);
+    }
+
+    if (!campoCargo.value.trim()) {
+        mostrarErro('erro-cargo', 'Por favor, informe o seu cargo.', campoCargo);
+        valido = false;
+    } else {
+        limparErro('erro-cargo', campoCargo);
+    }
+
+    if (!campoErp.value) {
+        mostrarErro('erro-erp', 'Por favor, selecione o seu ERP atual.', campoErp);
+        valido = false;
+    } else {
+        limparErro('erro-erp', campoErp);
     }
 
     return valido;
@@ -542,7 +560,9 @@ formCadastro.addEventListener('submit', function(evento) {
         nome:     campoNome.value.trim(),
         email:    campoEmail.value.trim(),
         telefone: campoTelefone.value.trim(),
-        empresa:  campoEmpresa.value.trim()
+        empresa:  campoEmpresa.value.trim(),
+        cargo:    campoCargo.value.trim(),
+        erp:      campoErp.value
     };
 
     ativarSecao(secaoOperacional);
@@ -566,7 +586,7 @@ formOperacional.addEventListener('submit', function(evento) {
 btnRecalcular.addEventListener('click', function() {
     formCadastro.reset();
     formOperacional.reset();
-    dadosCadastro = { nome: '', email: '', telefone: '', empresa: '' };
+    dadosCadastro = { nome: '', email: '', telefone: '', empresa: '', cargo: '', erp: '' };
     ativarSecao(secaoCadastro);
     atualizarStepper(1);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -575,7 +595,7 @@ btnRecalcular.addEventListener('click', function() {
 // Agendar Reunião — abre WhatsApp
 btnAgendar.addEventListener('click', function() {
     const mensagem = encodeURIComponent(
-        `Olá! Sou ${dadosCadastro.nome} da empresa ${dadosCadastro.empresa}. ` +
+        `Olá! Sou ${dadosCadastro.nome}, ${dadosCadastro.cargo} da empresa ${dadosCadastro.empresa} (ERP: ${dadosCadastro.erp}). ` +
         `Realizei o Diagnóstico Estratégico da Máquina.ISP e gostaria de agendar uma reunião.`
     );
     window.open(`https://wa.me/5599999999999?text=${mensagem}`, '_blank');
@@ -593,6 +613,8 @@ campoTelefone.addEventListener('input', (e) => {
     limparErro('erro-telefone', campoTelefone);
 });
 campoEmpresa.addEventListener('input',  () => limparErro('erro-empresa', campoEmpresa));
+campoCargo.addEventListener('input',    () => limparErro('erro-cargo', campoCargo));
+campoErp.addEventListener('change',     () => limparErro('erro-erp', campoErp));
 
 // Dados do negócio
 campoNumClientes.addEventListener('input',   () => limparErro('erro-num-clientes', campoNumClientes));

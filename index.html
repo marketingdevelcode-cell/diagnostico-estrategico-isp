@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diagnóstico Estratégico — Máquina.ISP</title>
+    <link rel="icon" href="assets/img/Logo%20favicon%20v2.png" type="image/png">
     <meta name="description"
         content="Calcule o impacto estimado da Máquina.ISP na sua operação. Reduza custos, diminua inadimplência, reduza o cancelamento e cresça sua base de clientes.">
 
@@ -207,6 +208,41 @@
                         <input type="text" id="empresa" class="form-input" placeholder="Ex.: Provedor Internet Ltda."
                             autocomplete="organization" required>
                         <span class="form-error" id="erro-empresa"></span>
+                    </div>
+
+                    <!-- Campo: Cargo -->
+                    <div class="form-group">
+                        <label class="form-label" for="cargo">
+                            <iconify-icon icon="solar:user-id-outline" class="label-icon"></iconify-icon>
+                            Cargo <span class="required-star">*</span>
+                        </label>
+                        <input type="text" id="cargo" class="form-input" placeholder="Ex.: Gerente, Diretor, CEO" required>
+                        <span class="form-error" id="erro-cargo"></span>
+                    </div>
+
+                    <!-- Campo: ERP Atual -->
+                    <div class="form-group">
+                        <label class="form-label" for="erp">
+                            <iconify-icon icon="solar:server-square-outline" class="label-icon"></iconify-icon>
+                            Sistema ERP Atual <span class="required-star">*</span>
+                        </label>
+                        <select id="erp" class="form-input" required>
+                            <option value="" disabled selected>Selecione seu ERP</option>
+                            <option value="MK Solutions">MK Solutions</option>
+                            <option value="IXC Soft">IXC Soft</option>
+                            <option value="HubSoft">HubSoft</option>
+                            <option value="Beesweb">Beesweb</option>
+                            <option value="Duobox">Duobox</option>
+                            <option value="MyCore">MyCore</option>
+                            <option value="SGP">SGP</option>
+                            <option value="Lógica Sistemas">Lógica Sistemas</option>
+                            <option value="ISPFY">ISPFY</option>
+                            <option value="Atlaz">Atlaz</option>
+                            <option value="Ksys">Ksys</option>
+                            <option value="TELPAG">TELPAG</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                        <span class="form-error" id="erro-erp"></span>
                     </div>
 
                     <!-- Botão Prosseguir -->
@@ -544,6 +580,7 @@
                         <div class="premium-card-inner">
                             <span class="c-tag">Conservador</span>
                             <h4 class="c-title">Cenário Moderado (Mensal)</h4>
+                            <div class="c-automacao tooltip-trigger" style="border: none;" data-tooltip="Nível de processos otimizados e adoção de IA aplicados neste cenário."><iconify-icon icon="solar:settings-bold-duotone"></iconify-icon> Automação: 25% <iconify-icon icon="solar:question-circle-line-duotone" style="opacity: 0.6; font-size: 14px;"></iconify-icon></div>
                             <p class="c-desc">Considerando atingir -50% dos resultados projetados.</p>
                             <div class="c-valor font-numeros" id="cenario-moderado">R$ 0,00</div>
                         </div>
@@ -554,6 +591,7 @@
                         <div class="premium-card-inner">
                             <span class="c-tag bg-accent text-white">Ideal</span>
                             <h4 class="c-title">Cenário Intermediário (Mensal)</h4>
+                            <div class="c-automacao tooltip-trigger" style="border: none;" data-tooltip="Nível de processos otimizados e adoção de IA aplicados neste cenário."><iconify-icon icon="solar:settings-bold-duotone"></iconify-icon> Automação: 50% <iconify-icon icon="solar:question-circle-line-duotone" style="opacity: 0.6; font-size: 14px;"></iconify-icon></div>
                             <p class="c-desc">Projeção principal validada pelo cálculo do diagnóstico.</p>
                             <div class="c-valor font-numeros text-accent" id="cenario-intermediario">R$ 0,00</div>
                         </div>
@@ -564,6 +602,7 @@
                         <div class="premium-card-inner">
                             <span class="c-tag text-success">Otimista</span>
                             <h4 class="c-title">Cenário Mapeado (Mensal)</h4>
+                            <div class="c-automacao tooltip-trigger" style="border: none;" data-tooltip="Nível de processos otimizados e adoção de IA aplicados neste cenário."><iconify-icon icon="solar:settings-bold-duotone"></iconify-icon> Automação: 75%+ <iconify-icon icon="solar:question-circle-line-duotone" style="opacity: 0.6; font-size: 14px;"></iconify-icon></div>
                             <p class="c-desc">Extrapolando e otimizando operação acima de +50%.</p>
                             <div class="c-valor font-numeros text-success" id="cenario-otimista">R$ 0,00</div>
                         </div>
