@@ -172,7 +172,7 @@
                             <iconify-icon icon="solar:user-outline" class="label-icon"></iconify-icon>
                             Nome Completo <span class="required-star">*</span>
                         </label>
-                        <input type="text" id="nome" class="form-input" placeholder="Ex.: João Silva"
+                        <input type="text" id="nome" name="nome" class="form-input" placeholder="Ex.: João Silva"
                             autocomplete="name" required>
                         <span class="form-error" id="erro-nome"></span>
                     </div>
@@ -183,7 +183,7 @@
                             <iconify-icon icon="solar:letter-outline" class="label-icon"></iconify-icon>
                             E-mail <span class="required-star">*</span>
                         </label>
-                        <input type="email" id="email" class="form-input" placeholder="Ex.: joao@provedor.com.br"
+                        <input type="email" id="email" name="email" class="form-input" placeholder="Ex.: joao@provedor.com.br"
                             autocomplete="email" required>
                         <span class="form-error" id="erro-email"></span>
                     </div>
@@ -194,7 +194,7 @@
                             <iconify-icon icon="solar:phone-calling-outline" class="label-icon"></iconify-icon>
                             Telefone / WhatsApp <span class="required-star">*</span>
                         </label>
-                        <input type="tel" id="telefone" class="form-input" placeholder="(00) 00000-0000"
+                        <input type="tel" id="telefone" name="telefone" class="form-input" placeholder="(00) 00000-0000"
                             autocomplete="tel" maxlength="15" required>
                         <span class="form-error" id="erro-telefone"></span>
                     </div>
@@ -205,7 +205,7 @@
                             <iconify-icon icon="solar:building-outline" class="label-icon"></iconify-icon>
                             Nome da Empresa <span class="required-star">*</span>
                         </label>
-                        <input type="text" id="empresa" class="form-input" placeholder="Ex.: Provedor Internet Ltda."
+                        <input type="text" id="empresa" name="empresa" class="form-input" placeholder="Ex.: Provedor Internet Ltda."
                             autocomplete="organization" required>
                         <span class="form-error" id="erro-empresa"></span>
                     </div>
@@ -216,7 +216,7 @@
                             <iconify-icon icon="solar:user-id-outline" class="label-icon"></iconify-icon>
                             Cargo <span class="required-star">*</span>
                         </label>
-                        <input type="text" id="cargo" class="form-input" placeholder="Ex.: Gerente, Diretor, CEO" required>
+                        <input type="text" id="cargo" name="cargo" class="form-input" placeholder="Ex.: Gerente, Diretor, CEO" required>
                         <span class="form-error" id="erro-cargo"></span>
                     </div>
 
@@ -226,7 +226,7 @@
                             <iconify-icon icon="solar:server-square-outline" class="label-icon"></iconify-icon>
                             Sistema ERP Atual <span class="required-star">*</span>
                         </label>
-                        <select id="erp" class="form-input" required>
+                        <select id="erp" name="erp" class="form-input" required>
                             <option value="" disabled selected>Selecione seu ERP</option>
                             <option value="MK Solutions">MK Solutions</option>
                             <option value="IXC Soft">IXC Soft</option>
@@ -284,7 +284,7 @@
                                     class="label-icon"></iconify-icon>
                                 Nº de Clientes (base atual) <span class="required-star">*</span>
                             </label>
-                            <input type="number" id="num-clientes" class="form-input" placeholder="Ex.: 2500" min="1"
+                            <input type="number" id="num-clientes" name="num_clientes" class="form-input" placeholder="Ex.: 2500" min="1"
                                 required>
                             <span class="form-error" id="erro-num-clientes"></span>
                         </div>
@@ -296,7 +296,7 @@
                             </label>
                             <div class="input-prefix-wrapper">
                                 <span class="input-prefix font-numeros">R$</span>
-                                <input type="number" id="ticket-medio" class="form-input has-prefix font-numeros"
+                                <input type="number" id="ticket-medio" name="ticket_medio" class="form-input has-prefix font-numeros"
                                     placeholder="Ex.: 100" min="0.01" step="0.01" required>
                             </div>
                             <span class="form-error" id="erro-ticket-medio"></span>
@@ -312,7 +312,7 @@
                                 Inadimplência Atual (%) <span class="required-star">*</span>
                             </label>
                             <div class="input-suffix-wrapper">
-                                <input type="number" id="inadimplencia" class="form-input has-suffix font-numeros"
+                                <input type="number" id="inadimplencia" name="inadimplencia" class="form-input has-suffix font-numeros"
                                     placeholder="Ex.: 8" min="0" max="100" step="0.1" required>
                                 <span class="input-suffix font-numeros">%</span>
                             </div>
@@ -325,7 +325,7 @@
                                 Churn Mensal Atual (%) <span class="required-star">*</span>
                             </label>
                             <div class="input-suffix-wrapper">
-                                <input type="number" id="churn" class="form-input has-suffix font-numeros" placeholder="Ex.: 3"
+                                <input type="number" id="churn" name="churn" class="form-input has-suffix font-numeros" placeholder="Ex.: 3"
                                     min="0" max="100" step="0.1" required>
                                 <span class="input-suffix font-numeros">%</span>
                             </div>
@@ -344,7 +344,7 @@
                             <iconify-icon icon="solar:handshake-outline" class="label-icon"></iconify-icon>
                             Número de Vendedores <span class="required-star">*</span>
                         </label>
-                        <input type="number" id="num-closer" class="form-input" placeholder="Ex.: 2" min="0" required>
+                        <input type="number" id="num-closer" name="num_closer" class="form-input" placeholder="Ex.: 2" min="0" required>
                         <span class="form-error" id="erro-num-closer"></span>
                     </div>
 
@@ -355,7 +355,7 @@
                                 <iconify-icon icon="solar:wallet-money-outline" class="label-icon"></iconify-icon>
                                 Pessoas na parte de cobrança <span class="required-star">*</span>
                             </label>
-                            <input type="number" id="num-financeiro" class="form-input" placeholder="Ex.: 2" min="0"
+                            <input type="number" id="num-financeiro" name="num_financeiro" class="form-input" placeholder="Ex.: 2" min="0"
                                 required>
                             <span class="form-error" id="erro-num-financeiro"></span>
                         </div>
@@ -366,7 +366,7 @@
                                     class="label-icon"></iconify-icon>
                                 Pessoas no Suporte <span class="required-star">*</span>
                             </label>
-                            <input type="number" id="num-suporte" class="form-input" placeholder="Ex.: 3" min="0"
+                            <input type="number" id="num-suporte" name="num_suporte" class="form-input" placeholder="Ex.: 3" min="0"
                                 required>
                             <span class="form-error" id="erro-num-suporte"></span>
                         </div>
@@ -378,7 +378,7 @@
                             <iconify-icon icon="solar:star-outline" class="label-icon"></iconify-icon>
                             Pessoas no Pós-venda <span class="required-star">*</span>
                         </label>
-                        <input type="number" id="num-posvenda" class="form-input" placeholder="Ex.: 2" min="0" required>
+                        <input type="number" id="num-posvenda" name="num_posvenda" class="form-input" placeholder="Ex.: 2" min="0" required>
                         <span class="form-error" id="erro-num-posvenda"></span>
                     </div>
 
