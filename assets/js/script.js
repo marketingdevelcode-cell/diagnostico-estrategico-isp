@@ -51,7 +51,7 @@ const secaoOperacional = document.getElementById('form-operacional');
 const secaoResultados  = document.getElementById('secao-resultados');
 
 // Formulários HTML
-const formCadastro     = document.getElementById('form-cadastro-fields');
+const formCadastro     = document.getElementById('form-cadastro-diagnostico');
 const formOperacional  = document.getElementById('form-operacional-fields');
 
 // Botões de navegação
