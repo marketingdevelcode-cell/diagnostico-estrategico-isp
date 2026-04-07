@@ -23,7 +23,7 @@ const custosEquipe = {
 
 // Ganhos estimados pela solução Máquina.ISP
 const reducaoInadimplencia    = 0.25;  // 25% do valor inadimplente recuperado
-const reducaoChurn            = 0.3;  // 30% da perda por churn evitada
+const reducaoChurn            = 0.25;  // 25% da perda por churn evitada
 const aumentoCrescimento      = 0.15; // +15% de aumento na base (fallback)
 const taxaConversaoLeads      = 0.20; // 20% de fechamento sobre novos leads
 const reducaoCustoOperacional = 0.5;  // 50% de redução na folha operacional
