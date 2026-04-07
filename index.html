@@ -322,7 +322,7 @@
                         <div class="form-group">
                             <label class="form-label" for="churn">
                                 <iconify-icon icon="solar:user-cross-outline" class="label-icon"></iconify-icon>
-                                Cancelamento Mensal Atual (%) <span class="required-star">*</span>
+                                Churn Mensal Atual (%) <span class="required-star">*</span>
                             </label>
                             <div class="input-suffix-wrapper">
                                 <input type="number" id="churn" class="form-input has-suffix font-numeros" placeholder="Ex.: 3"
@@ -338,26 +338,14 @@
                         <span>Estrutura da Operação</span>
                     </div>
 
-                    <!-- Linha: SDRs + Closers -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label" for="num-sdr">
-                                <iconify-icon icon="solar:phone-calling-outline" class="label-icon"></iconify-icon>
-                                Número de SDRs <span class="required-star">*</span>
-                            </label>
-                            <input type="number" id="num-sdr" class="form-input" placeholder="Ex.: 2" min="0" required>
-                            <span class="form-error" id="erro-num-sdr"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="num-closer">
-                                <iconify-icon icon="solar:handshake-outline" class="label-icon"></iconify-icon>
-                                Número de Vendedores <span class="required-star">*</span>
-                            </label>
-                            <input type="number" id="num-closer" class="form-input" placeholder="Ex.: 2" min="0"
-                                required>
-                            <span class="form-error" id="erro-num-closer"></span>
-                        </div>
+                    <!-- Vendedores -->
+                    <div class="form-group">
+                        <label class="form-label" for="num-closer">
+                            <iconify-icon icon="solar:handshake-outline" class="label-icon"></iconify-icon>
+                            Número de Vendedores <span class="required-star">*</span>
+                        </label>
+                        <input type="number" id="num-closer" class="form-input" placeholder="Ex.: 2" min="0" required>
+                        <span class="form-error" id="erro-num-closer"></span>
                     </div>
 
                     <!-- Linha: Financeiro + Suporte -->
@@ -365,7 +353,7 @@
                         <div class="form-group">
                             <label class="form-label" for="num-financeiro">
                                 <iconify-icon icon="solar:wallet-money-outline" class="label-icon"></iconify-icon>
-                                Pessoas no Financeiro <span class="required-star">*</span>
+                                Pessoas na parte de cobrança <span class="required-star">*</span>
                             </label>
                             <input type="number" id="num-financeiro" class="form-input" placeholder="Ex.: 2" min="0"
                                 required>
@@ -448,7 +436,7 @@
                             </div>
                             <div class="r-item-text">
                                 <span class="r-item-label">Redução de Inadimplência (Nova Taxa)</span>
-                                <p class="r-item-desc">Atuando com réguas de cobrança automatizadas e IA, projetamos uma <strong>redução de 40%</strong> sobre a sua taxa atual.</p>
+                                <p class="r-item-desc">Atuando com réguas de cobrança automatizadas e IA, projetamos uma <strong>redução de 25%</strong> sobre a sua taxa atual.</p>
                             </div>
                         </div>
                         <div class="r-item-right">
@@ -495,12 +483,134 @@
 
             </div>
 
+            <!-- Seção de redução de equipe -->
+            <div class="reducao-equipe-section" style="margin: 4rem 0;">
+                <div class="form-card-header text-center" style="margin-bottom: 32px; display: flex; flex-direction: column; align-items: center;">
+                    <span class="form-step-tag font-numeros" style="margin-bottom: 12px;">Força de Trabalho Digital</span>
+                    <h3 class="secao-titulo-secundario text-center" style="margin-bottom: 8px;">Automação por Setor</h3>
+                    <p class="form-card-desc text-center">Tamanho da equipe antes e depois de substituir processos e funções pela IA.</p>
+                </div>
+                <div class="reducao-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; max-width: 1000px; margin: 0 auto;">
+                    
+                    <div class="resultado-item premium-item-card" style="flex: 1 1 210px; max-width: 260px; display: flex; flex-direction: column; padding: 24px; text-align: center; gap: 8px;">
+                        <div class="resultado-card-icon" style="margin: 0 auto 8px;">
+                            <iconify-icon icon="solar:cart-large-minimalistic-bold-duotone" class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                        </div>
+                        <span class="r-item-label" style="font-size: 1.15rem;">Vendas</span>
+                        
+                        <div style="background: rgba(5, 150, 105, 0.1); color: #059669; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 9999px; margin: 4px auto; display: inline-flex; align-items: center; gap: 4px;">
+                            <iconify-icon icon="solar:magic-stick-3-bold"></iconify-icon>
+                            <span id="badge-red-vendedores">-0 IA's alocadas</span>
+                        </div>
+
+                        <div class="c-valor font-numeros text-accent" style="font-size: 2.2rem; line-height: 1; margin: 8px 0; display: flex; justify-content: center; align-items: baseline; gap: 8px;">
+                            <span style="font-size: 1.2rem; color: var(--text-muted); text-decoration: line-through; opacity: 0.7;" id="antigo-vendedores">0</span>
+                            <iconify-icon icon="solar:arrow-right-linear" style="font-size: 1.2rem; color: var(--text-light);"></iconify-icon>
+                            <span id="novo-vendedores" style="font-weight: 800;">0</span>
+                        </div>
+                        <p class="r-item-desc" style="font-size: 0.85rem; font-weight: 500;">Pessoas retidas no setor</p>
+                    </div>
+
+                    <div class="resultado-item premium-item-card" style="flex: 1 1 210px; max-width: 260px; display: flex; flex-direction: column; padding: 24px; text-align: center; gap: 8px; border-bottom: 4px solid var(--accent); box-shadow: 0 10px 30px rgba(0, 87, 255, 0.08);">
+                        <div class="resultado-card-icon" style="margin: 0 auto 8px;">
+                            <iconify-icon icon="solar:wallet-money-bold-duotone" class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                        </div>
+                        <span class="r-item-label" style="font-size: 1.15rem;">Cobrança</span>
+
+                        <div style="background: rgba(5, 150, 105, 0.1); color: #059669; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 9999px; margin: 4px auto; display: inline-flex; align-items: center; gap: 4px;">
+                            <iconify-icon icon="solar:magic-stick-3-bold"></iconify-icon>
+                            <span id="badge-red-cobranca">-0 IA's alocadas</span>
+                        </div>
+
+                        <div class="c-valor font-numeros text-accent" style="font-size: 2.2rem; line-height: 1; margin: 8px 0; display: flex; justify-content: center; align-items: baseline; gap: 8px;">
+                            <span style="font-size: 1.2rem; color: var(--text-muted); text-decoration: line-through; opacity: 0.7;" id="antigo-cobranca">0</span>
+                            <iconify-icon icon="solar:arrow-right-linear" style="font-size: 1.2rem; color: var(--text-light);"></iconify-icon>
+                            <span id="novo-cobranca" style="font-weight: 800;">0</span>
+                        </div>
+                        <p class="r-item-desc" style="font-size: 0.85rem; font-weight: 500;">Pessoas retidas no setor</p>
+                    </div>
+
+                    <div class="resultado-item premium-item-card" style="flex: 1 1 210px; max-width: 260px; display: flex; flex-direction: column; padding: 24px; text-align: center; gap: 8px;">
+                        <div class="resultado-card-icon" style="margin: 0 auto 8px;">
+                            <iconify-icon icon="solar:chat-round-line-bold-duotone" class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                        </div>
+                        <span class="r-item-label" style="font-size: 1.15rem;">Suporte</span>
+
+                        <div style="background: rgba(5, 150, 105, 0.1); color: #059669; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 9999px; margin: 4px auto; display: inline-flex; align-items: center; gap: 4px;">
+                            <iconify-icon icon="solar:magic-stick-3-bold"></iconify-icon>
+                            <span id="badge-red-suporte">-0 IA's alocadas</span>
+                        </div>
+
+                        <div class="c-valor font-numeros text-accent" style="font-size: 2.2rem; line-height: 1; margin: 8px 0; display: flex; justify-content: center; align-items: baseline; gap: 8px;">
+                            <span style="font-size: 1.2rem; color: var(--text-muted); text-decoration: line-through; opacity: 0.7;" id="antigo-suporte">0</span>
+                            <iconify-icon icon="solar:arrow-right-linear" style="font-size: 1.2rem; color: var(--text-light);"></iconify-icon>
+                            <span id="novo-suporte" style="font-weight: 800;">0</span>
+                        </div>
+                        <p class="r-item-desc" style="font-size: 0.85rem; font-weight: 500;">Pessoas retidas no setor</p>
+                    </div>
+
+                    <div class="resultado-item premium-item-card" style="flex: 1 1 210px; max-width: 260px; display: flex; flex-direction: column; padding: 24px; text-align: center; gap: 8px;">
+                        <div class="resultado-card-icon" style="margin: 0 auto 8px;">
+                            <iconify-icon icon="solar:star-bold-duotone" class="rcard-icon-svg text-accent-icon"></iconify-icon>
+                        </div>
+                        <span class="r-item-label" style="font-size: 1.15rem;">Pós-venda</span>
+
+                        <div style="background: rgba(5, 150, 105, 0.1); color: #059669; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 9999px; margin: 4px auto; display: inline-flex; align-items: center; gap: 4px;">
+                            <iconify-icon icon="solar:magic-stick-3-bold"></iconify-icon>
+                            <span id="badge-red-posvenda">-0 IA's alocadas</span>
+                        </div>
+
+                        <div class="c-valor font-numeros text-accent" style="font-size: 2.2rem; line-height: 1; margin: 8px 0; display: flex; justify-content: center; align-items: baseline; gap: 8px;">
+                            <span style="font-size: 1.2rem; color: var(--text-muted); text-decoration: line-through; opacity: 0.7;" id="antigo-posvenda">0</span>
+                            <iconify-icon icon="solar:arrow-right-linear" style="font-size: 1.2rem; color: var(--text-light);"></iconify-icon>
+                            <span id="novo-posvenda" style="font-weight: 800;">0</span>
+                        </div>
+                        <p class="r-item-desc" style="font-size: 0.85rem; font-weight: 500;">Pessoas retidas no setor</p>
+                    </div>
+                </div>
+
+                <!-- Resumo Ttoal -->
+                <div style="margin-top: 2.5rem; background: var(--primary); border-radius: var(--radius-card); padding: 1.5rem 2.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; box-shadow: 0 20px 40px rgba(9, 9, 11, 0.15); max-width: 1000px; margin-left: auto; margin-right: auto; position: relative; overflow: hidden;">
+                    <!-- Glow effect inside -->
+                    <div style="position: absolute; top: -50%; left: -10%; width: 250px; height: 250px; background: rgba(0, 87, 255, 0.4); filter: blur(80px); pointer-events: none;"></div>
+                    
+                    <div style="display: flex; align-items: center; gap: 18px; position: relative; z-index: 2;">
+                        <div style="width: 54px; height: 54px; border-radius: 14px; background: rgba(255, 255, 255, 0.1); display: flex; justify-content: center; align-items: center; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <iconify-icon icon="solar:users-group-two-rounded-bold-duotone" style="font-size: 28px; color: #fff;"></iconify-icon>
+                        </div>
+                        <div>
+                            <h4 style="font-family: 'Stereo Gothic W06 950', 'Montserrat', sans-serif; font-size: 1.25rem; color: #fff; margin-bottom: 2px; text-transform: uppercase;">Total de Funções em IA</h4>
+                            <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.6); margin: 0; line-height: 1.4;">Total de escopo de trabalho absorvido por inteligência artificial.</p>
+                        </div>
+                    </div>
+                    <div style="text-align: right; min-width: 120px; position: relative; z-index: 2;">
+                        <div class="font-numeros" id="soma-substituidos" style="font-size: 3.5rem; font-weight: 800; line-height: 1; color: #ffffff; text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);">0</div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Box Impacto Total Estimado -->
             <div class="resultado-total-box" id="card-reducao-custo">
-                <div class="premium-dark-card bg-dark">
-                    <span class="rcard-tag text-light">Impacto Financeiro Total Estimado / Mês</span>
-                    <h2 class="total-value font-numeros text-accent" id="val-impacto-total">R$ 0,00</h2>
-                    <p class="rcard-desc text-muted">A soma do aumento de receita, redução de custos e recuperação de perdas que a Máquina.ISP pode trazer para o seu negócio.</p>
+                <div class="premium-dark-card bg-dark" style="position: relative;">
+                    
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span class="rcard-tag text-light" style="margin: 0;">Impacto Financeiro Total Estimado / Mês</span>
+                        
+                        <div style="display: inline-flex; position: relative; cursor: help;" onmouseover="this.querySelector('.hover-box').style.opacity='1'; this.querySelector('.hover-box').style.transform='translateY(0)';" onmouseout="this.querySelector('.hover-box').style.opacity='0'; this.querySelector('.hover-box').style.transform='translateY(5px)';">
+                            <iconify-icon icon="solar:info-circle-bold-duotone" style="font-size: 1.25rem; color: rgba(255, 255, 255, 0.4); transition: color 0.3s;" onmouseover="this.style.color='rgba(255,255,255,0.9)';" onmouseout="this.style.color='rgba(255,255,255,0.4)';"></iconify-icon>
+                            
+                            <div class="hover-box" style="position: absolute; bottom: calc(100% + 12px); left: 50%; transform: translateX(-50%) translateY(5px); background: rgba(20, 20, 25, 0.98); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; padding: 10px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 500; text-align: center; line-height: 1.4; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); width: max-content; z-index: 20; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                                <div style="display: flex; gap: 8px; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="solar:info-circle-bold-duotone" style="font-size: 1.2rem; flex-shrink: 0;"></iconify-icon>
+                                    <span>O valor de Inadimplência<br>não entra neste cálculo.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="total-value font-numeros text-accent" id="val-impacto-total" style="margin-top: 10px; margin-bottom: 8px;">R$ 0,00</h2>
+
+                    <p class="rcard-desc text-muted" style="margin: 0 auto; max-width: 600px;">A soma do aumento de receita, redução de custos e recuperação de perdas que a Máquina.ISP pode trazer para o seu negócio.</p>
                 </div>
             </div>
 
@@ -519,101 +629,6 @@
                     Recuperação Total do Investimento em Tempo Recorde
                 </div>
             </div>
-
-            <!-- Comparativo Atual vs C/ Máquina -->
-            <div class="comparativo-section">
-                <h3 class="secao-titulo-secundario">Comparativo do seu Cenário</h3>
-                <div class="comparativo-grid">
-                    <div class="comp-card atual">
-                        <iconify-icon icon="solar:info-circle-line-duotone" class="comp-icon"></iconify-icon>
-                        <span class="comp-title">Sem a Máquina.ISP</span>
-                        <div class="comp-row">
-                            <span class="comp-label">
-                                <span class="tooltip-trigger" data-tooltip="Soma salarial da equipe (SDR, Closer, etc.) com encargos de 2.0x inclusos.">
-                                    Custo Operacional:
-                                    <iconify-icon icon="solar:question-circle-line-duotone" class="tip-icon"></iconify-icon>
-                                </span>
-                            </span>
-                            <span class="comp-val font-numeros" id="comp-custo-atual">R$ 0,00</span>
-                        </div>
-                        <div class="comp-row text-danger">
-                            <span class="comp-label">
-                                <span class="tooltip-trigger" data-tooltip="Soma do faturamento mensal comprometido por atrasos de pagamento (Inadimplência) e perda de clientes (Churn).">
-                                    Receita em Risco (Mensal):
-                                    <iconify-icon icon="solar:question-circle-line-duotone" class="tip-icon"></iconify-icon>
-                                </span>
-                            </span>
-                            <span class="comp-val font-numeros" id="comp-perda-atual">R$ 0,00</span>
-                        </div>
-                    </div>
-                    <div class="comp-card futuro">
-                        <iconify-icon icon="solar:rocket-line-duotone" class="comp-icon text-accent"></iconify-icon>
-                        <span class="comp-title text-accent">Com a Máquina.ISP</span>
-                        <div class="comp-row">
-                            <span class="comp-label">
-                                <span class="tooltip-trigger" data-tooltip="Custo da equipe após automação e otimização de 50% com a Máquina.ISP.">
-                                    Novo Custo Operacional:
-                                    <iconify-icon icon="solar:question-circle-line-duotone" class="tip-icon"></iconify-icon>
-                                </span>
-                            </span>
-                            <span class="comp-val font-numeros" id="comp-custo-novo">R$ 0,00</span>
-                        </div>
-                        <div class="comp-row text-success">
-                            <span class="comp-label">
-                                <span class="tooltip-trigger" data-tooltip="Soma mensal da retenção de churn e economia operacional gerada.">
-                                    Receita Ganha Total:
-                                    <iconify-icon icon="solar:question-circle-line-duotone" class="tip-icon"></iconify-icon>
-                                </span>
-                            </span>
-                            <span class="comp-val font-numeros" id="comp-receita-nova">R$ 0,00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3 Cenários (Moderado, Intermediário, Otimista) -->
-            <div class="cenarios-section">
-                <h3 class="secao-titulo-secundario text-center">Seu Potencial de Escala em 3 Cenários</h3>
-                <div class="cenarios-grid">
-                    <!-- Censário Moderado -->
-                    <div class="cenario-card conservador premium-card">
-                        <div class="premium-card-inner">
-                            <span class="c-tag">Conservador</span>
-                            <h4 class="c-title">Cenário Moderado (Mensal)</h4>
-                            <div class="c-automacao tooltip-trigger" style="border: none;" data-tooltip="Nível de processos otimizados e adoção de IA aplicados neste cenário."><iconify-icon icon="solar:settings-bold-duotone"></iconify-icon> Automação: 25% <iconify-icon icon="solar:question-circle-line-duotone" style="opacity: 0.6; font-size: 14px;"></iconify-icon></div>
-                            <p class="c-desc">Considerando atingir -50% dos resultados projetados.</p>
-                            <div class="c-valor font-numeros" id="cenario-moderado">R$ 0,00</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Cenário Intermediário -->
-                    <div class="cenario-card intermediario premium-card destaque">
-                        <div class="premium-card-inner">
-                            <span class="c-tag bg-accent text-white">Ideal</span>
-                            <h4 class="c-title">Cenário Intermediário (Mensal)</h4>
-                            <div class="c-automacao tooltip-trigger" style="border: none;" data-tooltip="Nível de processos otimizados e adoção de IA aplicados neste cenário."><iconify-icon icon="solar:settings-bold-duotone"></iconify-icon> Automação: 50% <iconify-icon icon="solar:question-circle-line-duotone" style="opacity: 0.6; font-size: 14px;"></iconify-icon></div>
-                            <p class="c-desc">Projeção principal validada pelo cálculo do diagnóstico.</p>
-                            <div class="c-valor font-numeros text-accent" id="cenario-intermediario">R$ 0,00</div>
-                        </div>
-                    </div>
-
-                    <!-- Cenário Otimista -->
-                    <div class="cenario-card otimista premium-card">
-                        <div class="premium-card-inner">
-                            <span class="c-tag text-success">Otimista</span>
-                            <h4 class="c-title">Cenário Mapeado (Mensal)</h4>
-                            <div class="c-automacao tooltip-trigger" style="border: none;" data-tooltip="Nível de processos otimizados e adoção de IA aplicados neste cenário."><iconify-icon icon="solar:settings-bold-duotone"></iconify-icon> Automação: 75%+ <iconify-icon icon="solar:question-circle-line-duotone" style="opacity: 0.6; font-size: 14px;"></iconify-icon></div>
-                            <p class="c-desc">Extrapolando e otimizando operação acima de +50%.</p>
-                            <div class="c-valor font-numeros text-success" id="cenario-otimista">R$ 0,00</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
 
             <!-- CTA de conversão -->
             <div class="resultado-cta">
@@ -655,6 +670,9 @@
 
     <!-- Script principal da aplicação -->
     <script src="assets/js/script.js"></script>
+
+    <!-- Rastreador de Leads -->
+    <script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/a432b62c-b417-42bc-9608-7fb7094baec0-loader.js"></script>
 
 </body>
 

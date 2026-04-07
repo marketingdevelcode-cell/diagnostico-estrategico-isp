@@ -14,18 +14,15 @@
    Salários médios de mercado para cada função
    Fator de custo inclui encargos trabalhistas (~50% sobre a folha)
    ============================================================ */
-const salarios = {
-    SDR:        3500,
-    Closer:     5000,
-    Financeiro: 4500,
-    Suporte:    3000,
-    PosVenda:   3500
+const custosEquipe = {
+    Closer:     1500 * 2 + 1500,  // 4500
+    Financeiro: 1800 * 2,         // 3600
+    Suporte:    2000 * 2,         // 4000
+    PosVenda:   1500 * 2 + 1000   // 4000
 };
 
-const fatorCusto = 2.0; // Encargos + benefícios sobre a folha bruta (Fator 2X)
-
 // Ganhos estimados pela solução Máquina.ISP
-const reducaoInadimplencia    = 0.4;  // 40% do valor inadimplente recuperado
+const reducaoInadimplencia    = 0.25;  // 25% do valor inadimplente recuperado
 const reducaoChurn            = 0.3;  // 30% da perda por churn evitada
 const aumentoCrescimento      = 0.15; // +15% de aumento na base (fallback)
 const taxaConversaoLeads      = 0.20; // 20% de fechamento sobre novos leads
@@ -84,7 +81,6 @@ const campoInadimplencia = document.getElementById('inadimplencia');
 const campoChurn         = document.getElementById('churn');
 
 // Campos da estrutura da operação (equipe)
-const campoSDR        = document.getElementById('num-sdr');
 const campoCloser     = document.getElementById('num-closer');
 const campoFinanceiro = document.getElementById('num-financeiro');
 const campoSuporte    = document.getElementById('num-suporte');
@@ -96,17 +92,23 @@ const valRecuperacaoInad    = document.getElementById('val-recuperacao-inad');
 const valRetencaoChurn      = document.getElementById('val-retencao-churn');
 const valEconomiaCusto      = document.getElementById('val-economia-custo');
 
-// Novos elementos do Redesign 
-const valImpactoTotal       = document.getElementById('val-impacto-total');
+const antigoVendedores = document.getElementById('antigo-vendedores');
+const antigoCobranca   = document.getElementById('antigo-cobranca');
+const antigoSuporte    = document.getElementById('antigo-suporte');
+const antigoPosVenda   = document.getElementById('antigo-posvenda');
 
-const compCustoAtual  = document.getElementById('comp-custo-atual');
-const compPerdaAtual  = document.getElementById('comp-perda-atual');
-const compCustoNovo   = document.getElementById('comp-custo-novo');
-const compReceitaNova = document.getElementById('comp-receita-nova');
+const novoVendedores = document.getElementById('novo-vendedores');
+const novoCobranca   = document.getElementById('novo-cobranca');
+const novoSuporte    = document.getElementById('novo-suporte');
+const novoPosVenda   = document.getElementById('novo-posvenda');
 
-const cenarioModerado      = document.getElementById('cenario-moderado');
-const cenarioIntermediario = document.getElementById('cenario-intermediario');
-const cenarioOtimista      = document.getElementById('cenario-otimista');
+const badgeRedVendedores = document.getElementById('badge-red-vendedores');
+const badgeRedCobranca   = document.getElementById('badge-red-cobranca');
+const badgeRedSuporte    = document.getElementById('badge-red-suporte');
+const badgeRedPosVenda   = document.getElementById('badge-red-posvenda');
+
+const valImpactoTotal    = document.getElementById('val-impacto-total');
+const somaSubstituidos   = document.getElementById('soma-substituidos');
 
 /* ============================================================
    UTILITÁRIOS
@@ -284,9 +286,8 @@ function validarOperacional() {
 
     // Campos da equipe — mínimo de 0, mas ao menos 1 pessoa no total
     const camposEquipe = [
-        { campo: campoSDR,        id: 'erro-num-sdr',        label: 'número de SDRs' },
         { campo: campoCloser,     id: 'erro-num-closer',     label: 'número de Vendedores' },
-        { campo: campoFinanceiro, id: 'erro-num-financeiro', label: 'pessoas no Financeiro' },
+        { campo: campoFinanceiro, id: 'erro-num-financeiro', label: 'pessoas na parte de cobrança' },
         { campo: campoSuporte,    id: 'erro-num-suporte',    label: 'pessoas no Suporte' },
         { campo: campoPosVenda,   id: 'erro-num-posvenda',   label: 'pessoas no Pós-venda' },
     ];
@@ -377,23 +378,39 @@ function calcularDiagnostico() {
     const ticketMedio   = lerNumero(campoTicketMedio);
     const inadimplencia = lerNumero(campoInadimplencia);
     const churn         = lerNumero(campoChurn);
-    const numSDR        = lerNumero(campoSDR);
     const numCloser     = lerNumero(campoCloser);
     const numFinanceiro = lerNumero(campoFinanceiro);
     const numSuporte    = lerNumero(campoSuporte);
     const numPosVenda   = lerNumero(campoPosVenda);
 
+    const numTotalColaboradores = numCloser + numFinanceiro + numSuporte + numPosVenda;
+
+    const calcularReducao = (qtd) => {
+        if (qtd >= 8) {
+            return Math.round(qtd * 0.5); // Se setor >= 8: 50% cortado
+        } else {
+            return qtd > 0 ? qtd - 1 : 0; // Se setor < 8: Deixa obrigatoriamente 1 humano
+        }
+    };
+
+    const calcularRetencao = (qtd) => {
+        return qtd - calcularReducao(qtd);
+    };
+
+    // --- Redução por Setor ---
+    const qVendedores = calcularReducao(numCloser);
+    const qCobranca   = calcularReducao(numFinanceiro);
+    const qSuporte    = calcularReducao(numSuporte);
+    const qPosVenda   = calcularReducao(numPosVenda);
+
     // --- 1. Faturamento (calculado automaticamente) ---
     const faturamento = numClientes * ticketMedio;
 
     // --- 2. Custo operacional (calculado pela equipe) ---
-    const folhaBruta = (numSDR        * salarios.SDR)
-                     + (numCloser     * salarios.Closer)
-                     + (numFinanceiro * salarios.Financeiro)
-                     + (numSuporte    * salarios.Suporte)
-                     + (numPosVenda   * salarios.PosVenda);
-
-    const custoOperacional = folhaBruta * fatorCusto;
+    const custoOperacional = (numCloser     * custosEquipe.Closer)
+                           + (numFinanceiro * custosEquipe.Financeiro)
+                           + (numSuporte    * custosEquipe.Suporte)
+                           + (numPosVenda   * custosEquipe.PosVenda);
 
     const perdaInadimplencia        = faturamento * (inadimplencia / 100);
     const recuperacaoInadimplencia  = perdaInadimplencia * reducaoInadimplencia;
@@ -405,19 +422,21 @@ function calcularDiagnostico() {
     const perdaChurn        = faturamento * (churn / 100);
     const recuperacaoChurn  = perdaChurn * reducaoChurn;
 
-    // --- 5. Redução de custo ---
-    const economiaOperacional = custoOperacional * reducaoCustoOperacional;
+    // --- 5. Redução de custo (Economia = Custo Original - Novo Custo) ---
+    const novoNumCloser     = calcularRetencao(numCloser);
+    const novoNumFinanceiro = calcularRetencao(numFinanceiro);
+    const novoNumSuporte    = calcularRetencao(numSuporte);
+    const novoNumPosVenda   = calcularRetencao(numPosVenda);
+
+    const novoCustoOperacional = (novoNumCloser     * custosEquipe.Closer)
+                               + (novoNumFinanceiro * custosEquipe.Financeiro)
+                               + (novoNumSuporte    * custosEquipe.Suporte)
+                               + (novoNumPosVenda   * custosEquipe.PosVenda);
+
+    const economiaOperacional = custoOperacional - novoCustoOperacional;
 
     // --- 6. Impacto financeiro total (Economia + Churn, excluindo Inadimplência conforme solicitado) ---
     const retornoTotal = recuperacaoChurn + economiaOperacional;
-
-    // --- 8. Comparativo ---
-    const perdaAtual = perdaInadimplencia + perdaChurn;
-    const custoNovo = custoOperacional - economiaOperacional;
-
-    // --- 9. Cenários ---
-    const valModerado = retornoTotal * 0.5;
-    const valOtimista = retornoTotal * 1.5;
 
     // --- Exibição dos valores ---
     resultadoEmpresaNome.textContent = dadosCadastro.empresa;
@@ -428,31 +447,29 @@ function calcularDiagnostico() {
     
     valImpactoTotal.textContent      = formatarMoeda(retornoTotal);
 
-    compCustoAtual.textContent  = formatarMoeda(custoOperacional);
-    compPerdaAtual.textContent  = formatarMoeda(perdaAtual);
-    compCustoNovo.textContent   = formatarMoeda(custoNovo);
-    compReceitaNova.textContent = formatarMoeda(retornoTotal);
+    antigoVendedores.textContent = numCloser;
+    antigoCobranca.textContent   = numFinanceiro;
+    antigoSuporte.textContent    = numSuporte;
+    antigoPosVenda.textContent   = numPosVenda;
 
-    cenarioModerado.textContent      = formatarMoeda(valModerado);
-    cenarioIntermediario.textContent = formatarMoeda(retornoTotal);
-    cenarioOtimista.textContent      = formatarMoeda(valOtimista);
+    animarInteiro(novoVendedores, novoNumCloser);
+    animarInteiro(novoCobranca, novoNumFinanceiro);
+    animarInteiro(novoSuporte, novoNumSuporte);
+    animarInteiro(novoPosVenda, novoNumPosVenda);
 
-    // --- Animação de contagem progressiva ---
-    // Passando true no terceiro parâmetro para prefixar "Cairá p/ " e adicionar o "%" ao final
+    badgeRedVendedores.textContent = `-${qVendedores} IA's alocadas`;
+    badgeRedCobranca.textContent   = `-${qCobranca} IA's alocadas`;
+    badgeRedSuporte.textContent    = `-${qSuporte} IA's alocadas`;
+    badgeRedPosVenda.textContent   = `-${qPosVenda} IA's alocadas`;
+
+    const totalReduzido = qVendedores + qCobranca + qSuporte + qPosVenda;
+    animarInteiro(somaSubstituidos, totalReduzido);
+
     animarContador(valRecuperacaoInad,   novaTaxaInad, 800, true, 'Cairá p/ '); 
     animarContador(valRetencaoChurn,     recuperacaoChurn);
     animarContador(valEconomiaCusto,     economiaOperacional);
     
     animarContador(valImpactoTotal,      retornoTotal);
-
-    animarContador(compCustoAtual,  custoOperacional);
-    animarContador(compPerdaAtual,  perdaAtual);
-    animarContador(compCustoNovo,   custoNovo);
-    animarContador(compReceitaNova, retornoTotal);
-
-    animarContador(cenarioModerado,      valModerado);
-    animarContador(cenarioIntermediario, retornoTotal);
-    animarContador(cenarioOtimista,      valOtimista);
 }
 
 /**
@@ -487,6 +504,31 @@ function animarContador(elemento, valorFinal, duracao = 800, isPercentual = fals
             } else {
                 elemento.textContent = prefixo + formatarMoeda(valorFinal);
             }
+        }
+    }
+
+    requestAnimationFrame(passo);
+}
+
+/**
+ * Anima um valor numérico inteiro puro na tela mantendo seu formato original (apenas a contagem matemática).
+ */
+function animarInteiro(elemento, valorFinal, duracao = 800) {
+    const inicio = performance.now();
+
+    function passo(agora) {
+        const decorrido = agora - inicio;
+        const progresso = Math.min(decorrido / duracao, 1);
+        const progressoSuave = 1 - Math.pow(1 - progresso, 3); // ease-out cúbico
+
+        const valorAtual = Math.round(valorFinal * progressoSuave);
+
+        elemento.textContent = valorAtual;
+
+        if (progresso < 1) {
+            requestAnimationFrame(passo);
+        } else {
+            elemento.textContent = valorFinal;
         }
     }
 
@@ -623,7 +665,6 @@ campoInadimplencia.addEventListener('input', () => limparErro('erro-inadimplenci
 campoChurn.addEventListener('input',         () => limparErro('erro-churn', campoChurn));
 
 // Equipe
-campoSDR.addEventListener('input',        () => limparErro('erro-num-sdr', campoSDR));
 campoCloser.addEventListener('input',     () => limparErro('erro-num-closer', campoCloser));
 campoFinanceiro.addEventListener('input', () => limparErro('erro-num-financeiro', campoFinanceiro));
 campoSuporte.addEventListener('input',    () => limparErro('erro-num-suporte', campoSuporte));
