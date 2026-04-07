@@ -569,14 +569,24 @@
                     </div>
                 </div>
 
-                <!-- Resumo Ttoal -->
-                <div style="margin-top: 2.5rem; background: var(--primary); border-radius: var(--radius-card); padding: 1.5rem 2.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; box-shadow: 0 20px 40px rgba(9, 9, 11, 0.15); max-width: 1000px; margin-left: auto; margin-right: auto; position: relative; overflow: hidden;">
+                <!-- Resumo Total -->
+                <style>
+                    @keyframes pulse-total-glow {
+                        0% { transform: scale(1); opacity: 0.6; }
+                        100% { transform: scale(1.15) translate(10px, 10px); opacity: 1; }
+                    }
+                    @keyframes glow-pulse-border {
+                        0% { box-shadow: 0 10px 40px rgba(0, 87, 255, 0.1); border-color: rgba(0, 87, 255, 0.1); }
+                        100% { box-shadow: 0 15px 50px rgba(0, 87, 255, 0.35); border-color: rgba(0, 87, 255, 0.4); }
+                    }
+                </style>
+                <div style="margin-top: 2.5rem; background: var(--primary); border: 2px solid rgba(0, 87, 255, 0.1); border-radius: var(--radius-card); padding: 1.5rem 2.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; max-width: 1000px; margin-left: auto; margin-right: auto; position: relative; overflow: hidden; animation: glow-pulse-border 2s alternate infinite ease-in-out; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
                     <!-- Glow effect inside -->
-                    <div style="position: absolute; top: -50%; left: -10%; width: 250px; height: 250px; background: rgba(0, 87, 255, 0.4); filter: blur(80px); pointer-events: none;"></div>
+                    <div style="position: absolute; top: -40%; left: -10%; width: 300px; height: 300px; background: rgba(0, 87, 255, 0.45); filter: blur(80px); pointer-events: none; animation: pulse-total-glow 3s alternate infinite ease-in-out;"></div>
                     
                     <div style="display: flex; align-items: center; gap: 18px; position: relative; z-index: 2;">
-                        <div style="width: 54px; height: 54px; border-radius: 14px; background: rgba(255, 255, 255, 0.1); display: flex; justify-content: center; align-items: center; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.1);">
-                            <iconify-icon icon="solar:users-group-two-rounded-bold-duotone" style="font-size: 28px; color: #fff;"></iconify-icon>
+                        <div style="width: 58px; height: 58px; border-radius: 14px; background: rgba(255, 255, 255, 0.12); display: flex; justify-content: center; align-items: center; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px);">
+                            <iconify-icon icon="solar:users-group-two-rounded-bold-duotone" style="font-size: 30px; color: #fff;"></iconify-icon>
                         </div>
                         <div>
                             <h4 style="font-family: 'Stereo Gothic W06 950', 'Montserrat', sans-serif; font-size: 1.25rem; color: #fff; margin-bottom: 2px; text-transform: uppercase;">Total de Funções em IA</h4>
@@ -584,7 +594,7 @@
                         </div>
                     </div>
                     <div style="text-align: right; min-width: 120px; position: relative; z-index: 2;">
-                        <div class="font-numeros" id="soma-substituidos" style="font-size: 3.5rem; font-weight: 800; line-height: 1; color: #ffffff; text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);">0</div>
+                        <div class="font-numeros" id="soma-substituidos" style="font-size: 3.5rem; font-weight: 800; line-height: 1; color: #ffffff; text-shadow: 0 0 25px rgba(255, 255, 255, 0.35);">0</div>
                     </div>
                 </div>
             </div>
